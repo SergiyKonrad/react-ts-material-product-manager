@@ -1,31 +1,17 @@
-import React, { useEffect, useState } from 'react'
 import { Product } from './componenets/Product'
-import { products } from './data/products'
-import axios from 'axios'
-import { IProduct } from './modules'
+import { useProducts } from './hooks/products'
+import { Loader } from './componenets/Loader'
 
 function App() {
-  const [products, setProducts] = useState<IProduct[]>([])
-
-  async function fetchProducts() {
-    const response = await axios.get<IProduct[]>(
-      'https://fakestoreapi.com/products?limit=5',
-    )
-    setProducts(response.data)
-  }
-
-  useEffect(() => {
-    fetchProducts()
-  }, [])
+  const { loading, error, products } = useProducts()
 
   return (
     <div className="container mx-auto max-w-2xl pt-5">
+      {loading && <Loader />}
+      {error && <p className="text-center text-red-600">{error}</p>}
       {products.map((product) => (
         <Product product={product} key={product.id} />
       ))}
-
-      {/* <Product product={products[0]} />
-      <Product product={products[1]} /> */}
     </div>
   )
 }
