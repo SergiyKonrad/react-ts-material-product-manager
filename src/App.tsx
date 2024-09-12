@@ -15,7 +15,7 @@ function App() {
         <Product product={product} key={product.id} />
       ))}
 
-      <Modal />
+      {/* <Modal /> */}
     </div>
   )
 }
