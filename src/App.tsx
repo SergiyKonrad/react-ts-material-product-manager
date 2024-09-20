@@ -2,7 +2,7 @@ import { Product } from './componenets/Product'
 import { useProducts } from './hooks/products'
 import { Loader } from './componenets/Loader'
 import { ErrorMessage } from './componenets/ErrorMessage'
-import { Modal } from './componenets/Modal'
+// import { Modal } from './componenets/Modal'
 
 function App() {
   const { loading, error, products } = useProducts()

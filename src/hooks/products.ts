@@ -11,9 +11,11 @@ export function useProducts() {
     try {
       setError('')
       setLoading(true)
+
       const response = await axios.get<IProduct[]>(
         'https://fakestoreapi.com/products?limit=5',
       )
+
       setProducts(response.data)
       setLoading(false)
     } catch (e: unknown) {
@@ -27,5 +29,5 @@ export function useProducts() {
     fetchProducts()
   }, [])
 
-  return { products, error, loading }
+  return { products, loading, error }
 }

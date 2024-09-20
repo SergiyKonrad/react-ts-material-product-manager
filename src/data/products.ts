@@ -1,3 +1,13 @@
+export {}
+
+/* Fallback data for products
+
+ This file contains a static array of products that can be used when 
+ the API is unavailable, or when you need offline testing or development.
+*/
+
+/*
+
 import { IProduct } from '../models'
 
 export const products: IProduct[] = [
@@ -27,3 +37,5 @@ export const products: IProduct[] = [
     rating: { rate: 4.1, count: 259 },
   },
 ]
+
+*/

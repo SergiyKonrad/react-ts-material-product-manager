@@ -6,6 +6,10 @@ interface ProductProps {
 }
 
 export function Product({ product }: ProductProps) {
+  // the same as --- export function Product(props: ProductProps) {
+  //   const product = props.product;
+  // }
+
   const [details, setDetails] = useState(false)
 
   const btnBgClassName = details ? 'bg-yellow-400' : 'bg-blue-400'
