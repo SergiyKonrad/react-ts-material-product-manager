@@ -6,14 +6,13 @@ interface ProductProps {
 }
 
 export function Product({ product }: ProductProps) {
-  // the same as --- export function Product(props: ProductProps) {
+  // the same as export function Product(props: ProductProps) {
   //   const product = props.product;
   // }
 
   const [details, setDetails] = useState(false)
 
   const btnBgClassName = details ? 'bg-yellow-400' : 'bg-blue-400'
-
   const btnClasses = ['border py-2 px-4 rounded', btnBgClassName]
 
   return (

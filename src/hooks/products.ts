@@ -8,14 +8,13 @@ export function useProducts(id: number) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  // Fetch products based on `id`
   async function fetchProducts() {
     try {
       setError('')
       setLoading(true)
 
       const response = await axios.get<IProduct[]>(
-        `https://fakestoreapi.com/products?limit=${id}`, // Use the id in the API request
+        `https://fakestoreapi.com/products?limit=${id}`,
       )
 
       setProducts(response.data)
@@ -27,10 +26,9 @@ export function useProducts(id: number) {
     }
   }
 
-  // Watch for changes in `id` and re-fetch the products
   useEffect(() => {
     fetchProducts()
-  }, [id]) // Dependency array includes `id` to re-run the effect when it changes
+  }, [id])
 
   return { products, loading, error }
 }
