@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { IProduct } from '../models'
 import axios, { AxiosError } from 'axios'
 
@@ -8,7 +8,7 @@ export function useProducts(id: number) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  async function fetchProducts() {
+  const fetchProducts = useCallback(async () => {
     try {
       setError('')
       setLoading(true)
@@ -24,11 +24,11 @@ export function useProducts(id: number) {
       setLoading(false)
       setError(error.message)
     }
-  }
+  }, [id]) // Include id in the dependency array
 
   useEffect(() => {
     fetchProducts()
-  }, [id])
+  }, [fetchProducts])
 
   return { products, loading, error }
 }
