@@ -30,7 +30,7 @@ git clone https://github.com/SergiyKonrad/react-ts-axios-project.git
 Move to the project directory:
 
 ```
-cd react-ts-axios-projec
+cd react-ts-axios-project
 ```
 
 To install the dependencies:
@@ -50,7 +50,7 @@ Open http://localhost:3000 to view the app in the browser.
 ## Deployment
 
 This project is deployed to Vercel at the following link:
-[Vite React App on Vercel](https://react-ts-axios-project.vercel.app/)
+[React TS Axios Project on Vercel](https://react-ts-axios-project.vercel.app/)
 
 ## Contributions
 
