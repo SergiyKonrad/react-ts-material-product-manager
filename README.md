@@ -1,46 +1,61 @@
-# Getting Started with Create React App
+# React TS Axios Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project demonstrates a simple implementation of dynamic product loading using React, TypeScript, and Axios. The project fetches and displays product details, with a focus on handling loading states, errors, and dynamic data retrieval using hooks.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Dynamic Product Loading**: Fetches and displays products dynamically.
+- **Axios Integration**: Uses Axios for API calls to fetch product data.
+- **Custom Hooks**: Manages product fetching with custom `useProducts` hook.
+- **Loader Component**: Displays a loading spinner while data is being fetched.
+- **Error Handling**: Displays error messages when the data fetching fails.
 
-### `npm start`
+## How It Works
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The `useProducts` hook is responsible for fetching product data from an API using Axios.
+- The `Product` component renders product details for each fetched product.
+- The `Loader` component shows a spinner while the data is being loaded.
+- The `ErrorMessage` component displays error messages if the API call fails.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The project allows users to dynamically load products by clicking the "Load Next Product" button. This increments the product ID and fetches the next product from the API.
 
-### `npm test`
+## Running the App
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Clone the repository:
 
-### `npm run build`
+```bash
+git clone https://github.com/SergiyKonrad/react-ts-axios-project.git
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Move to the project directory:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+cd react-ts-axios-projec
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To install the dependencies:
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To start the development server:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Open http://localhost:3000 to view the app in the browser.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Deployment
 
-## Learn More
+This project is deployed to Vercel at the following link:
+[Vite React App on Vercel](https://vite-react-app-sigma.vercel.app/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contributions
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Feel free to open an issue or submit a pull request if you'd like to contribute to this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENCE) file for details.
