@@ -50,7 +50,7 @@ Open http://localhost:3000 to view the app in the browser.
 ## Deployment
 
 This project is deployed to Vercel at the following link:
-[Vite React App on Vercel](https://vite-react-app-sigma.vercel.app/)
+[Vite React App on Vercel](https://react-ts-axios-project.vercel.app/)
 
 ## Contributions
 
