@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Product } from './componenets/Product'
 import { useProducts } from './hooks/products'
-import { Loader } from './componenets/Loader'
-import { ErrorMessage } from './componenets/ErrorMessage'
+import { Product } from './components/Product'
+import { Loader } from './components/Loader'
+import { ErrorMessage } from './components/ErrorMessage'
 // import { Modal } from './componenets/Modal'
 
 function App() {
