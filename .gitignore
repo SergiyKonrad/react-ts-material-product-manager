@@ -17,6 +17,7 @@ dist-ssr/
 /.pnp
 .pnp.js
 # Local environment files
+.env
 .env.*
 *.local
 
