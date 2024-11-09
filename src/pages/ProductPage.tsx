@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Product } from '../components/Product'
-// import { ProductList } from './components/ProductList'
+import { Product } from '../components/Products'
+// import { ProductList } from '../components/ProductList'
 import { useProducts } from '../hooks/useProducts'
 import { useDeleteProduct } from '../hooks/useDeleteProduct'
 import { showSuccess, showError } from '../components/ToastNotification'
@@ -16,7 +16,7 @@ const ProductPage = () => {
     setId((prevId) => prevId + 1)
   }
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await deleteProduct(id.toString())
@@ -29,15 +29,16 @@ const ProductPage = () => {
   }
 
   return (
+    // <>
     <div>
-      <h1 className="text-center text-2xl font-bold mb-4">Product List</h1>
+      <h1 className="text-center text-2xl font-bold mb-4">Products</h1>
       {loading && <Loader />}
       {error && <ErrorMessage error={error} />}
       {products.map((product) => (
         <Product
           key={product.id}
           product={product}
-          onDelete={() => handleDelete(product.id)}
+          onDelete={() => handleDelete(product.id.toString())}
         />
       ))}
 
@@ -48,6 +49,14 @@ const ProductPage = () => {
         Load Next Product (ID: {id})
       </button>
     </div>
+
+    // <div>
+    //   <h2 className="text-center text-2xl font-bold mb-4">Product List</h2>
+    //   {loading && <Loader />}
+    //   {error && <ErrorMessage error={error} />}
+    //   <ProductList products={products} onDelete={handleDelete} />
+    // </div>
+    // </>
   )
 }
 

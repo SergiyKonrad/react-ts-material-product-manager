@@ -1,10 +1,10 @@
 import React from 'react'
 import { IProduct } from '../models'
-import { Product } from './Product'
+import { Product } from './Products'
 
 interface ProductListProps {
   products: IProduct[]
-  onDelete: (id: string) => void
+  onDelete: (id: string) => Promise<void>
 }
 
 export const ProductList: React.FC<ProductListProps> = ({
@@ -16,7 +16,7 @@ export const ProductList: React.FC<ProductListProps> = ({
       <Product
         key={product.id}
         product={product}
-        onDelete={() => onDelete(product.id.toString())}
+        onDelete={async () => await onDelete(product.id.toString())} // Wrap in async function
       />
     ))}
   </div>
