@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const DEBUG = false // Set to true to see notifications
+const DEBUG = true // Set to false to mute success and error toasts/notifications
 
 export const useDeleteProduct = () => {
   const deleteProduct = async (id: string) => {
