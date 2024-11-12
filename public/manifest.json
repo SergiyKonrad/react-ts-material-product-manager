@@ -1,6 +1,6 @@
 {
-  "short_name": "React Axios App",
-  "name": "react-ts-axios-project",
+  "short_name": "React Product App",
+  "name": "react-ts-material-product-manager",
   "icons": [
     {
       "src": "favicon.ico",

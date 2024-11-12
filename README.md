@@ -1,4 +1,4 @@
-# React TS Axios Project
+# React TS Material Product Manager
 
 This project demonstrates a simple implementation of dynamic product loading using React, TypeScript and Axios.
 It fetches and displays product details, with a focus on handling loading states, error handling, debugging, and preparing the frontend for backend compatibility.
