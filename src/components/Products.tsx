@@ -16,7 +16,7 @@ export function Product({ product, onDelete }: ProductProps) {
     setIsDeleting(true)
     setShowDeleteModal(false)
 
-    // Simulate the deletion delay
+    // Simulate the deletion delay for training purpuse
     setTimeout(async () => {
       try {
         await onDelete(product.id.toString()) // Simulated deletion (will call actual delete when backend is connected)
@@ -33,7 +33,7 @@ export function Product({ product, onDelete }: ProductProps) {
     <div className="border py-2 px-4 rounded flex flex-col items-center mb-2">
       <img src={product.image} className="w-1/6" alt={product.title} />
       <p className="italic">{product.title}</p>
-      <p className="font-bold">${product.price}</p>
+      <p className="font-bold">${product.price.toFixed(2)}</p>
 
       <button
         className={btnClasses.join(' ')}
