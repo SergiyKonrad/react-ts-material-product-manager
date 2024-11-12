@@ -14,12 +14,16 @@ export function Product({ product, onDelete }: ProductProps) {
 
   const handleDeleteClick = async () => {
     setIsDeleting(true)
-    try {
-      await onDelete(product.id.toString())
-    } finally {
-      setIsDeleting(false)
-      setShowDeleteModal(false)
-    }
+    setShowDeleteModal(false)
+
+    // Simulate the deletion delay
+    setTimeout(async () => {
+      try {
+        await onDelete(product.id.toString()) // Simulated deletion (will call actual delete when backend is connected)
+      } finally {
+        setIsDeleting(false) // Reset loading state
+      }
+    }, 1000)
   }
 
   const btnBgClassName = details ? 'bg-yellow-400' : 'bg-blue-400'
