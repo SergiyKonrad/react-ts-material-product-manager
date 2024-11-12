@@ -1,6 +1,6 @@
 # React TS Axios Project
 
-This project demonstrates a simple implementation of dynamic product loading using React, TypeScript, and Axios. The project fetches and displays product details, with a focus on handling loading states, errors, and dynamic data retrieval using hooks.
+This project demonstrates a simple implementation of dynamic product loading using React, TypeScript and Axios. It fetches and displays product details, with a focus on handling loading states, error handling, debugging, and preparing the frontend for backend compatibility.
 
 ## Features
 
@@ -9,13 +9,15 @@ This project demonstrates a simple implementation of dynamic product loading usi
 - **Custom Hooks**: Manages product fetching with custom `useProducts` hook.
 - **Loader Component**: Displays a loading spinner while data is being fetched.
 - **Error Handling**: Displays error messages when the data fetching fails.
+- **Debugging Mode**: Centralized `DEBUG` flag controls notifications, enabling or suppressing messages to streamline development.
+- **Backend Compatibility**: Prepares frontend components for integration with a backend API, allowing seamless expansion to support full CRUD operations.
 
 ## How It Works
 
-- The `useProducts` hook is responsible for fetching product data from an API using Axios.
-- The `Product` component renders product details for each fetched product.
-- The `Loader` component shows a spinner while the data is being loaded.
-- The `ErrorMessage` component displays error messages if the API call fails.
+- The `useProducts` hook fetches product data from an API using Axios.
+- The `Product` component renders details for each fetched product.
+- The `Loader` component displays a spinner while data is loading.
+- The `ErrorMessage` component shows error messages if the API call fails.
 
 The project allows users to dynamically load products by clicking the "Load Next Product" button. This increments the product ID and fetches the next product from the API.
 
