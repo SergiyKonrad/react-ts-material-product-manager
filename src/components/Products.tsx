@@ -65,8 +65,8 @@ export function Product({ product, onDelete }: ProductProps) {
           <p>Are you sure you want to delete this product?</p>
           <div className="flex justify-between mt-4">
             <button
-              onClick={handleDeleteClick}
               className="bg-red-500 text-white p-2 rounded w-full mr-2 flex items-center justify-center"
+              onClick={handleDeleteClick}
               disabled={isDeleting}
               aria-label="Confirm delete"
             >
