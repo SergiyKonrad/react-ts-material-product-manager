@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductPage from './pages/ProductPage'
+// import ProductPage from './pages/ProductPage'
 import ProductPageMaterialUI from './pages/ProductPageMaterialUI'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -15,9 +15,9 @@ function App() {
       <ToastContainer />
 
       {/* Apply consistent width */}
-      <div className="max-w-2xl mx-auto p-8">
+      {/* <div className="max-w-2xl mx-auto p-8">
         <ProductPage />
-      </div>
+      </div> */}
       <div className="max-w-2xl mx-auto">
         <ProductPageMaterialUI />
       </div>

@@ -15,6 +15,7 @@ const Container = styled(Box)({
 const StyledCard = styled(Card)({
   marginBottom: '16px',
   textAlign: 'center',
+  position: 'relative',
 })
 
 const StyledImage = styled('img')({
@@ -24,8 +25,27 @@ const StyledImage = styled('img')({
   margin: '20px auto 0',
 })
 
-const DeletetButton = styled(Button)({
-  marginBottom: '16px',
+// const DeletetButton = styled(Button)({
+//   marginBottom: '16px',
+// })
+
+const DeleteCross = styled(Button)({
+  position: 'absolute',
+  top: '8px',
+  right: '8px',
+  color: '#fff',
+  backgroundColor: '#f44336',
+  borderRadius: '50%',
+  minWidth: '24px',
+  height: '24px',
+  lineHeight: '24px',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  padding: 0,
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: '#d32f2f',
+  },
 })
 
 const LoadNextButton = styled(Button)({
@@ -64,6 +84,13 @@ const ProductPageMaterialUI = () => {
 
       {products.map((product) => (
         <StyledCard key={product.id} variant="outlined">
+          <DeleteCross
+            onClick={() => handleDelete(product.id.toString())}
+            aria-label="Delete product"
+          >
+            &times;
+          </DeleteCross>
+
           <StyledImage src={product.image} alt={product.title} />
           <CardContent>
             <Typography variant="h5" component="div">
@@ -76,13 +103,14 @@ const ProductPageMaterialUI = () => {
               ${product.price.toFixed(2)}
             </Typography>
           </CardContent>
-          <DeletetButton
+
+          {/* <DeletetButton
             variant="contained"
             color="error"
             onClick={() => handleDelete(product.id.toString())}
           >
             Delete
-          </DeletetButton>
+          </DeletetButton> */}
         </StyledCard>
       ))}
 
