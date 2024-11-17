@@ -1,27 +1,65 @@
 import React from 'react'
-// import ProductPage from './pages/ProductPage'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from 'react-router-dom'
+import ProductPage from './pages/ProductPage'
 import ProductPageMaterialUI from './pages/ProductPageMaterialUI'
+import AddProductPage from './pages/AddProductPage'
+
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
-    // <div className="container mx-auto max-w-2xl pt-5">
-    //   <ToastContainer />
-    //   <ProductPage />
-    //   <ProductPageMaterialUI />
+    <Router>
+      <div className="container mx-auto pt-5 px-4 space-y-5">
+        <ToastContainer />
 
-    <div className="container mx-auto pt-5 space-y-5">
-      <ToastContainer />
+        {/* Navigation Links */}
+        <nav className="flex flex-wrap justify-around space-x-2 mb-4">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-blue-700 font-bold underline'
+                : 'text-blue-500 hover:underline'
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/product-page"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-blue-600 font-bold underline'
+                : 'text-blue-500 hover:underline'
+            }
+          >
+            Product Page
+          </NavLink>
+          <NavLink
+            to="/add-product"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-blue-600 font-bold underline'
+                : 'text-blue-500 hover:underline'
+            }
+          >
+            Add Product
+          </NavLink>
+        </nav>
 
-      {/* Apply consistent width */}
-      {/* <div className="max-w-2xl mx-auto p-8">
-        <ProductPage />
-      </div> */}
-      <div className="max-w-2xl mx-auto">
-        <ProductPageMaterialUI />
+        {/* Define Routes */}
+        <Routes>
+          <Route path="/" element={<ProductPageMaterialUI />} />
+          <Route path="/product-page" element={<ProductPage />} />
+          <Route path="/add-product" element={<AddProductPage />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   )
 }
 

@@ -52,6 +52,8 @@ const LoadNextButton = styled(Button)({
   padding: '8px',
 })
 
+// components
+
 const ProductPageMaterialUI = () => {
   const [id, setId] = useState(1) // Control number of products to fetch
   const { products, loading, error, fetchProducts } = useProducts(id)

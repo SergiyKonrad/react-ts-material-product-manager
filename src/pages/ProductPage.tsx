@@ -8,9 +8,8 @@ import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
 
 const ProductPage = () => {
-  const [id, setId] = useState(1) // Control number of products to fetch
+  const [id, setId] = useState(5) // Control number of products to fetch
   const { products, loading, error, fetchProducts } = useProducts(id)
-
   const deleteProduct = useDeleteProduct() // Using the function from the hook
 
   const handleIdChange = () => {
