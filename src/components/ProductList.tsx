@@ -14,9 +14,11 @@ export const ProductList: React.FC<ProductListProps> = ({
   <div>
     {products.map((product) => (
       <Product
-        key={product.id}
+        key={product._id || product.id}
         product={product}
-        onDelete={async () => await onDelete(product.id.toString())} // Wrap in async function
+        onDelete={async () =>
+          await onDelete((product._id || product.id!).toString())
+        }
       />
     ))}
   </div>

@@ -1,0 +1,52 @@
+/*
+import axios from 'axios'
+import { toast } from 'react-toastify'
+
+export const useUpdateProduct = () => {
+  const updateProduct = async (
+    id: string,
+    updatedProduct: {
+      title?: string
+      description?: string
+      price?: number
+      image?: string
+    },
+  ) => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL}/product/${id}`,
+        updatedProduct,
+      )
+      toast.success('Product updated successfully!')
+      return response.data
+    } catch (error) {
+      toast.error('Failed to update product')
+      console.error(error)
+      throw error // Re-throw to handle errors in the calling component
+    }
+  }
+
+  return updateProduct
+}
+
+*/
+
+import { updateProduct } from '../utils/api'
+import { toast } from 'react-toastify'
+import { IProduct } from '../models'
+
+export const useUpdateProduct = () => {
+  const handleUpdateProduct = async (id: string, data: Partial<IProduct>) => {
+    try {
+      const response = await updateProduct(id, data)
+      toast.success('Product updated successfully!')
+      return response.data // Return updated product data for further use if needed
+    } catch (error) {
+      toast.error('Failed to update product')
+      console.error(error)
+      throw error // Re-throw error for the calling component to handle
+    }
+  }
+
+  return handleUpdateProduct
+}

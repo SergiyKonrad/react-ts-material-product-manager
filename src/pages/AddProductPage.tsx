@@ -1,10 +1,53 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { showSuccess, showError } from '../components/ToastNotification' // Import helpers
+import { showSuccess, showError } from '../components/ToastNotification'
 import { Box, TextField, Button } from '@mui/material'
+import { useAddProduct } from '../hooks/useAddProduct'
+
+// const handleAddProduct = async (newProduct: {
+//   title: string
+//   description: string
+//   price: number
+//   image: string
+// }) => {
+//   try {
+//     const response = await addProduct(newProduct)
+//     console.log('Product added:', response.data)
+//   } catch (error) {
+//     console.error('Error adding product:', error)
+//   }
+// }
+
+// const updateProduct = async (
+//   id: string,
+//   updatedData: {
+//     title?: string
+//     description?: string
+//     price?: number
+//     image?: string
+//   },
+// ) => {
+//   try {
+//     const response = await API.put(`/product/${id}`, updatedData)
+//     console.log('Product updated:', response.data)
+//   } catch (error) {
+//     console.error('Error updating product:', error)
+//   }
+// }
+
+// const deleteProduct = async (id: string) => {
+//   try {
+//     await API.delete(`/product/${id}`)
+//     console.log('Product deleted')
+//   } catch (error) {
+//     console.error('Error deleting product:', error)
+//   }
+// }
 
 const AddProductPage = () => {
+  const addProduct = useAddProduct() // Using the custom hook for adding products
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -27,7 +70,11 @@ const AddProductPage = () => {
     }),
     onSubmit: async (values) => {
       try {
-        console.log('Product added:', values) // Replace with API call
+        const newProduct = {
+          ...values,
+          price: Number(values.price), // Convert price to a number
+        }
+        await addProduct(newProduct) // Call custom hook to add product
         showSuccess('Product added successfully!')
         formik.resetForm()
       } catch (error) {

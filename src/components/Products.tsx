@@ -16,7 +16,19 @@ export function Product({ product, onDelete }: ProductProps) {
     setIsDeleting(true)
     setShowDeleteModal(false)
 
-    // Simulate the deletion delay for training purpuse
+    try {
+      if (product._id || product.id) {
+        await onDelete((product._id || product.id)!.toString())
+      } else {
+        console.error('Product ID is undefined')
+      }
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
+  // Or simulate the deletion delay for training purpuse
+  /*
     setTimeout(async () => {
       try {
         await onDelete(product.id.toString()) // Simulated deletion (will call actual delete when backend is connected)
@@ -25,6 +37,7 @@ export function Product({ product, onDelete }: ProductProps) {
       }
     }, 1000)
   }
+    */
 
   const btnBgClassName = details ? 'bg-yellow-400' : 'bg-blue-400'
   const btnClasses = ['border py-2 px-4 rounded', btnBgClassName]
@@ -50,9 +63,13 @@ export function Product({ product, onDelete }: ProductProps) {
       {details && (
         <div className="text-center mt-2">
           <p>{product.description}</p>
-          <p>
-            Rate: <span className="font-bold">{product.rating.rate}</span>
-          </p>
+          {product.rating ? (
+            <p>
+              Rate: <span className="font-bold">{product.rating.rate}</span>
+            </p>
+          ) : (
+            <p>Rating not available</p>
+          )}
         </div>
       )}
 
