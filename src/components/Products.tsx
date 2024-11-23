@@ -17,8 +17,9 @@ export function Product({ product, onDelete }: ProductProps) {
     setShowDeleteModal(false)
 
     try {
-      if (product._id || product.id) {
-        await onDelete((product._id || product.id)!.toString())
+      const productId = product._id || product.id
+      if (productId) {
+        await onDelete(productId.toString())
       } else {
         console.error('Product ID is undefined')
       }
@@ -27,42 +28,46 @@ export function Product({ product, onDelete }: ProductProps) {
     }
   }
 
-  // Or simulate the deletion delay for training purpuse
-  /*
-    setTimeout(async () => {
-      try {
-        await onDelete(product.id.toString()) // Simulated deletion (will call actual delete when backend is connected)
-      } finally {
-        setIsDeleting(false) // Reset loading state
-      }
-    }, 1000)
-  }
-    */
-
-  const btnBgClassName = details ? 'bg-yellow-400' : 'bg-blue-400'
+  const btnBgClassName = details
+    ? 'bg-yellow-400 hover:bg-yellow-500'
+    : 'bg-blue-400 hover:bg-blue-500'
   const btnClasses = ['border py-2 px-4 rounded', btnBgClassName]
 
   return (
     <div className="border py-2 px-4 rounded flex flex-col items-center mb-2">
-      <img src={product.image} className="w-1/6" alt={product.title} />
-      <p className="italic">{product.title}</p>
-      <p className="font-bold">${product.price.toFixed(2)}</p>
+      {/* Product Image */}
+      <img
+        src={
+          product.image ||
+          'https://via.placeholder.com/150?text=No+Image+Available'
+        }
+        className="w-1/6"
+        alt={product.name || product.title || 'Product Image'}
+      />
 
+      {/* Product Title */}
+      <p className="italic text-lg">
+        {product.name || product.title || 'No Title Available'}
+      </p>
+
+      {/* Product Price */}
+      <p className="font-bold text-lg">
+        ${product.price?.toFixed(2) || 'Price Not Available'}
+      </p>
+
+      {/* Show/Hide Details Button */}
       <button
         className={btnClasses.join(' ')}
-        // --- or Inline Ternary Logic
-        // className={`border py-2 px-4 rounded ${
-        //   details ? 'bg-yellow-400' : 'bg-blue-400'
-        // }`}
         onClick={() => setDetails((prev) => !prev)}
-        aria-label={details ? 'Hide details' : 'Show details'}
+        aria-label={details ? 'Hide product details' : 'Show product details'}
       >
-        {details ? 'Hide details' : 'Show details'}
+        {details ? 'Hide Details' : 'Show Details'}
       </button>
 
+      {/* Product Rating Details */}
       {details && (
         <div className="text-center mt-2">
-          <p>{product.description}</p>
+          <p>{product.description || 'No description available'}</p>
           {product.rating ? (
             <p>
               Rate: <span className="font-bold">{product.rating.rate}</span>
@@ -73,34 +78,36 @@ export function Product({ product, onDelete }: ProductProps) {
         </div>
       )}
 
+      {/* Delete Button */}
       <button
-        className="bg-red-500 text-white p-2 mt-2 rounded"
+        className="bg-red-500 text-white p-2 mt-2 rounded hover:bg-red-600"
         onClick={() => setShowDeleteModal(true)}
-        aria-label="Delete product"
+        aria-label="Delete this product"
       >
         Delete Product
       </button>
 
+      {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <Modal>
           <p>Are you sure you want to delete this product?</p>
           <div className="flex justify-between mt-4">
             <button
-              className="bg-red-500 text-white p-2 rounded w-full mr-2 flex items-center justify-center"
+              className="bg-red-500 hover:bg-red-600 text-white p-2 rounded w-full mr-2 flex items-center justify-center"
               onClick={handleDeleteClick}
               disabled={isDeleting}
               aria-label="Confirm delete"
             >
               {isDeleting ? (
-                <span className="loader mr-2">Loading...</span> // Spinner text or icon
+                <span className="loader mr-2">Loading...</span>
               ) : (
                 'Confirm Delete'
               )}
             </button>
             <button
               onClick={() => setShowDeleteModal(false)}
-              className="bg-gray-300 text-black p-2 rounded w-full"
-              aria-label="Cancel delete"
+              className="bg-gray-300 hover:bg-gray-400 text-black p-2 rounded w-full"
+              aria-label="Cancel delete action"
             >
               Cancel
             </button>

@@ -8,13 +8,18 @@ import {
 import ProductPage from './pages/ProductPage'
 import ProductPageMaterialUI from './pages/ProductPageMaterialUI'
 import AddProductPage from './pages/AddProductPage'
-
+// .
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
-    <Router>
+    <Router
+      future={{
+        v7_startTransition: true, // To opt-in for React 18 transitions
+        v7_relativeSplatPath: true, // To fix relative path behavior for splat routes
+      }}
+    >
       <div className="container mx-auto pt-5 px-4 space-y-5">
         <ToastContainer />
 
@@ -30,6 +35,7 @@ function App() {
           >
             Home
           </NavLink>
+
           <NavLink
             to="/product-page"
             className={({ isActive }) =>
@@ -40,6 +46,7 @@ function App() {
           >
             Product Page
           </NavLink>
+
           <NavLink
             to="/add-product"
             className={({ isActive }) =>
