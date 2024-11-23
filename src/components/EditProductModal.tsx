@@ -3,17 +3,30 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useUpdateProduct } from '../hooks/useUpdateProduct'
 import { IProduct } from '../models'
+import { toast } from 'react-toastify'
+import { useProducts } from '../hooks/useProducts'
+import ToastMessage from '../components/ToastMessage'
 
 interface EditProductModalProps {
   product: IProduct
   onClose: () => void
+  limit: number
 }
 
-const EditProductModal: React.FC<EditProductModalProps> = ({
+// const EditProductModal: React.FC<EditProductModalProps> = ({
+//   product,
+//   onClose,
+// }) => {
+//   const updateProduct = useUpdateProduct()
+
+const EditProductModal = ({
   product,
   onClose,
-}) => {
+  limit,
+}: EditProductModalProps) => {
   const updateProduct = useUpdateProduct()
+  const { fetchProducts } = useProducts() // Import fetchProducts here
+  // const limit = 1
 
   const formik = useFormik({
     initialValues: {
@@ -26,28 +39,58 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
     validationSchema: Yup.object({
       name: Yup.string()
         .required('Name is required')
-        .min(3, 'Name must be at least 3 characters')
-        .max(50, 'Name must not exceed 50 characters'),
+        .min(1, 'Name must be at least 1 character')
+        .max(50, 'Name must not exceed 50 characters')
+        .matches(
+          /^[a-zA-Z0-9.,!'’\- ]{1,50}$/,
+          'Invalid characters in product name',
+        ),
 
       description: Yup.string()
         .required('Description is required')
         .min(10, 'Description must be at least 10 characters')
-        .max(200, 'Description must not exceed 200 characters'),
+        .max(200, 'Description must not exceed 200 characters')
+        .matches(
+          /^[a-zA-Z0-9.,!'’\- ]{10,200}$/,
+          'Invalid characters in product description',
+        ),
 
       price: Yup.number()
         .required('Price is required')
         .min(1, 'Price must be greater than 0')
-        .max(9999, 'Price must be less than 10000'),
+        .max(9999, 'Price must be less than 10000')
+        .typeError('Price must be a valid number'),
 
       image: Yup.string()
         .required('Image URL is required')
         .url('Invalid URL format'),
+      // .matches(
+      //   /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)$/,
+      //   'Image URL must be a valid link to an image (e.g., .jpg, .png)',
+      // ),
     }),
 
     onSubmit: async (values) => {
+      // Compare current values with initial product values
+      if (
+        values.name === product.name &&
+        values.description === product.description &&
+        values.price === product.price &&
+        values.image === product.image
+      ) {
+        alert('No changes were made.')
+        return
+      }
+
       try {
-        await updateProduct(product._id || product.id!.toString(), values) // Update product
-        onClose() // Close modal on success.
+        await updateProduct(product._id || product.id!.toString(), values)
+        fetchProducts(0, limit, true) // Force fetch to refresh the list
+
+        toast.info(
+          <ToastMessage message="Go to Home page to see the updated product." />,
+        )
+
+        onClose()
       } catch (error) {
         console.error('Error updating product:', error)
       }

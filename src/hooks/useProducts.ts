@@ -6,12 +6,23 @@ export function useProducts() {
   const [products, setProducts] = useState<IProduct[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
-  const [cache, setCache] = useState<Record<string, IProduct[]>>({}) // Cache object
+  const [cache, setCache] = useState<Record<string, IProduct[]>>({}) // Cache object.
 
   const fetchProducts = useCallback(
-    async (offset: number = 0, limit: number = 5) => {
+    async (
+      offset: number = 0,
+      limit: number = 5,
+      forceUpdate: boolean = false,
+    ) => {
       const cacheKey = `${offset}-${limit}`
-      if (cache[cacheKey]) {
+
+      // if (cache[cacheKey]) {
+      //   setProducts(cache[cacheKey]) // Use cached data
+      //   return
+      // }
+
+      // Skip cache for fresh fetch after updates
+      if (cache[cacheKey] && !forceUpdate) {
         setProducts(cache[cacheKey]) // Use cached data
         return
       }

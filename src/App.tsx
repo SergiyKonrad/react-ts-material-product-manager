@@ -24,16 +24,16 @@ function App() {
         <ToastContainer />
 
         {/* Navigation Links */}
-        <nav className="flex flex-wrap justify-around space-x-2 mb-4">
+        <nav className="flex flex-wrap justify-around space-between space-x-2 mb-4">
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive
-                ? 'text-blue-700 font-bold underline'
+                ? 'text-blue-600 font-bold underline'
                 : 'text-blue-500 hover:underline'
             }
           >
-            Home
+            Product
           </NavLink>
 
           <NavLink

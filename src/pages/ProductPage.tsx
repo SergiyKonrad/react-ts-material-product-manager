@@ -6,16 +6,26 @@ import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
 import EditProductModal from '../components/EditProductModal' // Import the modal component
 import { IProduct } from '../models' // Import the product interface.
+import DynamicButton from '../components/DynamicButton'
+import { ButtonWrapper } from '../components/StyledComponents'
 
 const ProductPage = () => {
   const { products, loading, error, fetchProducts } = useProducts()
   const deleteProduct = useDeleteProduct()
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null)
+  const [offset, setOffset] = useState(0) // Track the current offset
+  const limit = 3 // Number of products per batch
 
+  // Fetch products whenever the offset changes
   useEffect(() => {
-    fetchProducts(0, 3) // Fetch 3 products
-  }, [fetchProducts])
+    fetchProducts(offset, limit)
+  }, [offset, fetchProducts, limit])
+
+  // useEffect(() => {
+  //   fetchProducts(0, limit) // Always fetch the first batch of products
+  //   setOffset(0) // Reset the offset to ensure updated products are displayed first
+  // }, [fetchProducts, limit])
 
   const openEditModal = (product: IProduct) => {
     setSelectedProduct(product)
@@ -25,19 +35,33 @@ const ProductPage = () => {
   const closeEditModal = () => {
     setSelectedProduct(null)
     setEditModalOpen(false)
-    fetchProducts(0, 3) // Refresh products after editing
+    fetchProducts(offset, limit) // Refresh products after editing
   }
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await deleteProduct(id)
-        fetchProducts(0, 3) // Refresh product list after deletion
+        fetchProducts(offset, limit) // Refresh product list after deletion
       } catch {
-        console.error('Failed to delete product')
+        console.error('Failed to delete product:', error)
       }
     }
   }
+
+  // Load the next batch of products
+  const handleLoadNext = () => {
+    if (products.length < limit) {
+      setOffset(0) // Reset to the first batch if at the end
+    } else {
+      setOffset((prevOffset) => prevOffset + limit) // Increment offset
+    }
+  }
+
+  //  --- or use this approach instead to apply the DynamicButton ---
+  // const handleLoadNext = () => {
+  //   setOffset((prevOffset) => prevOffset + limit)
+  // }
 
   return (
     <div>
@@ -47,6 +71,7 @@ const ProductPage = () => {
       {products.map((product) => (
         <div key={product._id || product.id} className="mb-4">
           <Product product={product} onDelete={handleDelete} />
+
           {/* Add the Edit button */}
           <button
             className="bg-green-500 text-white p-2 mt-2 rounded hover:bg-green-600"
@@ -60,8 +85,26 @@ const ProductPage = () => {
 
       {/* Edit Product Modal */}
       {isEditModalOpen && selectedProduct && (
-        <EditProductModal product={selectedProduct} onClose={closeEditModal} />
+        <EditProductModal
+          product={selectedProduct}
+          onClose={closeEditModal}
+          limit={limit}
+        />
       )}
+
+      {/* Get Another Product Button */}
+      <div>
+        <ButtonWrapper>
+          <DynamicButton
+            isEmpty={products.length === 0}
+            variant="contained"
+            onClick={handleLoadNext}
+            disabled={loading || products.length === 0}
+          >
+            {products.length === 0 ? 'No More Products' : 'Get Another Product'}
+          </DynamicButton>
+        </ButtonWrapper>
+      </div>
     </div>
   )
 }
