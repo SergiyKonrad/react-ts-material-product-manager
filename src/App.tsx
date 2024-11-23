@@ -24,7 +24,8 @@ function App() {
         <ToastContainer />
 
         {/* Navigation Links */}
-        <nav className="flex flex-wrap justify-around space-between space-x-2 mb-4">
+        {/* <nav className="flex justify-between max-w-2xl mx-auto mb-4"> */}
+        <nav className="flex justify-around mb-4">
           <NavLink
             to="/"
             className={({ isActive }) =>

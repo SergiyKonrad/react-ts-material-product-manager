@@ -52,6 +52,8 @@ const ProductPage = () => {
   // Load the next batch of products
   const handleLoadNext = () => {
     if (products.length < limit) {
+      // if (products.length === 0) {
+      alert('No more products. Resetting to the first batch.')
       setOffset(0) // Reset to the first batch if at the end
     } else {
       setOffset((prevOffset) => prevOffset + limit) // Increment offset
@@ -99,9 +101,12 @@ const ProductPage = () => {
             isEmpty={products.length === 0}
             variant="contained"
             onClick={handleLoadNext}
-            disabled={loading || products.length === 0}
+            // disabled={loading || products.length === 0}
+            disabled={loading}
           >
-            {products.length === 0 ? 'No More Products' : 'Get Another Product'}
+            {products.length === 0
+              ? 'Back to First Product'
+              : 'Get Another Product'}
           </DynamicButton>
         </ButtonWrapper>
       </div>

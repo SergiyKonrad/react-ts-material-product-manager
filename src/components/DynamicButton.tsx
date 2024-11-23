@@ -8,11 +8,11 @@ interface DynamicButtonProps extends ButtonProps {
 const DynamicButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'isEmpty', // Prevent `isEmpty` from being passed to DOM
 })<DynamicButtonProps>(({ theme, isEmpty }) => ({
-  backgroundColor: isEmpty ? 'brown !important' : theme.palette.primary.main,
+  backgroundColor: isEmpty ? 'green !important' : theme.palette.primary.main,
   color: 'white',
   '&:hover': {
     backgroundColor: isEmpty
-      ? 'darkbrown !important'
+      ? 'darkgreen !important'
       : theme.palette.primary.dark,
   },
   '&:disabled': {
