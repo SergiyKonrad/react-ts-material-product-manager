@@ -51,7 +51,7 @@ const EditProductModal = ({
         .min(10, 'Description must be at least 10 characters')
         .max(200, 'Description must not exceed 200 characters')
         .matches(
-          /^[a-zA-Z0-9.,!'’\- ]{10,200}$/,
+          /^[a-zA-Z0-9.,!'’+\- ]{10,200}$/,
           'Invalid characters in product description',
         ),
 
@@ -103,59 +103,69 @@ const EditProductModal = ({
         <h2 className="text-lg font-bold mb-4">Edit Product</h2>
         <form onSubmit={formik.handleSubmit}>
           {/* Name */}
-          <input
-            type="text"
-            name="name"
-            className="w-full border rounded px-3 py-2 mb-3"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="Enter product name"
-          />
-          {formik.touched.name && formik.errors.name && (
-            <p className="text-red-500">{formik.errors.name}</p>
-          )}
+          <div className="mb-3">
+            {formik.touched.name && formik.errors.name && (
+              <p className="text-red-500 text-sm mb-1">{formik.errors.name}</p>
+            )}
+            <input
+              type="text"
+              name="name"
+              className="w-full border rounded px-3 py-2 mb-3"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Enter product name"
+            />
+          </div>
 
           {/* Description */}
-          <textarea
-            name="description"
-            className="w-full border rounded px-3 py-2 mb-3"
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="Product Description"
-          />
-          {formik.touched.description && formik.errors.description && (
-            <p className="text-red-500">{formik.errors.description}</p>
-          )}
+          <div className="mb-3">
+            {formik.touched.description && formik.errors.description && (
+              <p className="text-red-500 text-sm mb-1">
+                {formik.errors.description}
+              </p>
+            )}
+            <textarea
+              name="description"
+              className="w-full border rounded px-3 py-2 mb-3"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Product Description"
+            />
+          </div>
 
           {/* Price */}
-          <input
-            type="number"
-            name="price"
-            className="w-full border rounded px-3 py-2 mb-3"
-            value={formik.values.price}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="Product Price"
-          />
-          {formik.touched.price && formik.errors.price && (
-            <p className="text-red-500">{formik.errors.price}</p>
-          )}
+          <div className="mb-3">
+            {formik.touched.price && formik.errors.price && (
+              <p className="text-red-500 text-sm mb-1">{formik.errors.price}</p>
+            )}
+            <input
+              type="number"
+              name="price"
+              className="w-full border rounded px-3 py-2 mb-3"
+              value={formik.values.price}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Product Price"
+            />
+          </div>
 
           {/* Image URL */}
-          <input
-            type="text"
-            name="image"
-            className="w-full border rounded px-3 py-2 mb-3"
-            value={formik.values.image}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder="Image URL"
-          />
-          {formik.touched.image && formik.errors.image && (
-            <p className="text-red-500">{formik.errors.image}</p>
-          )}
+          <div className="mb-3">
+            {formik.touched.image && formik.errors.image && (
+              <p className="text-red-500 text-sm mb-1">{formik.errors.image}</p>
+            )}
+            <input
+              type="text"
+              name="image"
+              className="w-full border rounded px-3 py-2 mb-3"
+              value={formik.values.image}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Image URL"
+            />
+          </div>
 
           {/* Buttons */}
           <div className="flex gap-4 mt-6 justify-center">
