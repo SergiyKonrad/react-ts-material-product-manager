@@ -48,3 +48,9 @@ export const ButtonWrapper = styled(Box)({
 // export const LoadNextButton = styled(Button)({
 //   marginTop: '16px',
 // })
+
+export const ItalicSmallText = styled('p')({
+  fontStyle: 'italic',
+  fontSize: '0.875rem', // 14px
+  color: '#666', // Optional: A lighter color
+})

@@ -1,45 +1,58 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { showSuccess, showError } from '../components/ToastNotification'
+// import { showError } from '../components/ToastNotification'
 import { Box, TextField, Button } from '@mui/material'
 import { useAddProduct } from '../hooks/useAddProduct'
+import { useNavigate } from 'react-router-dom'
 
 const AddProductPage = () => {
+  const navigate = useNavigate()
   const addProduct = useAddProduct() // Using the custom hook for adding products
 
   const formik = useFormik({
     initialValues: {
-      title: '',
+      name: '', // Changed from title to name
       description: '',
       price: '',
       image: '',
     },
     validationSchema: Yup.object({
-      title: Yup.string()
-        .required('Title is required')
+      name: Yup.string()
+        .required('Name or Title is required')
         .max(30, 'Max 30 characters'),
       description: Yup.string()
         .required('Description is required')
-        .max(200, 'Max 200 characters'),
+        .min(10, 'Description must be at least 10 characters')
+        .max(200, 'Description must not exceed 200 characters'),
       price: Yup.number()
         .required('Price is required')
         .min(1, 'Price must be greater than 0')
         .max(9999, 'Price must be less than 10,000'),
-      image: Yup.string().required('Image URL is required'),
+      image: Yup.string()
+        // .required('Image URL is required'),
+        .url('Invalid URL format')
+        .notRequired(), // Makes the field optional
     }),
+
     onSubmit: async (values) => {
       try {
         const newProduct = {
-          ...values,
-          price: Number(values.price), // Convert price to a number
+          name: values.name, //  for primary identification
+          title: values.name, // Map `name` to `title` for backward compatibility
+          description: values.description,
+          price: Number(values.price),
+          image: values.image,
         }
-        await addProduct(newProduct) // Call custom hook to add product
-        showSuccess('Product added successfully!')
+
+        await addProduct(newProduct) // Add product using the hook
+        navigate('/')
+        // navigate('/product-page') // Go to ProductPage
+
         formik.resetForm()
       } catch (error) {
         console.error('Error adding product:', error)
-        showError('Failed to add product')
+        // showError('Failed to add product')
       }
     },
   })
@@ -49,14 +62,15 @@ const AddProductPage = () => {
       <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth
-          name="title"
-          label="Title"
-          value={formik.values.title}
+          name="name"
+          label="Name"
+          value={formik.values.name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.title && Boolean(formik.errors.title)}
-          helperText={formik.touched.title && formik.errors.title}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
           margin="normal"
+          // autoComplete="off"
         />
         <TextField
           fullWidth

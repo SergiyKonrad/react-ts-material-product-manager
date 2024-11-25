@@ -84,12 +84,12 @@ const EditProductModal = ({
 
       try {
         await updateProduct(product._id || product.id!.toString(), values)
-        fetchProducts(0, limit, true) // Force fetch to refresh the list
+        fetchProducts(0, limit, true) // Refresh the product list
 
+        // NB. Custom toast notification with navigation support
         toast.info(
           <ToastMessage message="Go to Home page to see the updated product." />,
         )
-
         onClose()
       } catch (error) {
         console.error('Error updating product:', error)

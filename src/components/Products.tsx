@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { IProduct } from '../models'
 import { Modal } from './Modal'
+import { ItalicSmallText } from './StyledComponents'
 
 interface ProductProps {
   product: IProduct
@@ -45,9 +46,9 @@ export function Product({ product, onDelete }: ProductProps) {
         alt={product.name || product.title || 'Product Image'}
       />
 
-      {/* Product Title */}
+      {/* Product Name */}
       <p className="italic text-lg">
-        {product.name || product.title || 'No Title Available'}
+        {product.name || product.title || 'No Name or Title Available'}
       </p>
 
       {/* Product Price */}
@@ -68,12 +69,13 @@ export function Product({ product, onDelete }: ProductProps) {
       {details && (
         <div className="text-center mt-2">
           <p>{product.description || 'No description available'}</p>
+
           {product.rating ? (
             <p>
               Rate: <span className="font-bold">{product.rating.rate}</span>
             </p>
           ) : (
-            <p>Rating not available</p>
+            <ItalicSmallText>Rating not available</ItalicSmallText>
           )}
         </div>
       )}
