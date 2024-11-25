@@ -112,7 +112,7 @@ const EditProductModal = ({
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Enter product name"
-              autoComplete="name"
+              autoComplete="on"
             />
           </div>
 

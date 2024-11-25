@@ -21,43 +21,14 @@ const ProductPageMaterialUI = () => {
   const deleteProduct = useDeleteProduct()
   const limit = 1
 
-  // useEffect(() => {
-  //   fetchProducts(offset, limit) // Fetch products on offset change
-  // }, [offset, fetchProducts])
-
   useEffect(() => {
     fetchProducts(0, limit) // Always fetch the first batch of products
     setOffset(0) // Reset the offset to ensure updated products are displayed first
   }, [fetchProducts, limit])
 
-  // const handleLoadNext = () => {
-  //   // Reset to the first product batch if at the end
-  //   if (products.length < limit) {
-  //     setOffset(0)
-  //   } else {
-  //     setOffset((prevOffset) => prevOffset + limit) // Increment offset
-  //   }
-  // }
-
-  // const handleDelete = async (id: string) => {
-  //   if (window.confirm('Are you sure you want to delete this product?')) {
-  //     try {
-  //       await deleteProduct(id)
-  //       fetchProducts(offset, limit) // Refresh the current batch
-  //     } catch {
-  //       console.error('Failed to delete product')
-  //     }
-  //   }
-  // }
-  //  .
-
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        // setProducts((prevProducts) =>
-        //   prevProducts.filter((product) => product.id !== id),
-        // ) // Optimistically update UI !?
-
         await deleteProduct(id) // Call the delete API
         const updatedOffset = Math.max(offset - limit, 0) // Calculate the new offset
         await fetchProducts(updatedOffset, limit, true) // Fetch the previous or current batch
@@ -111,3 +82,18 @@ const ProductPageMaterialUI = () => {
   )
 }
 export default ProductPageMaterialUI
+
+// useEffect(() => {
+//   fetchProducts(offset, limit) // Fetch products on offset change
+// }, [offset, fetchProducts])
+
+// OPTIONAL! Reset to the first product batch if at the end
+
+// const handleLoadNext = () => {
+//
+//   if (products.length < limit) {
+//     setOffset(0)
+//   } else {
+//     setOffset((prevOffset) => prevOffset + limit)
+//   }
+// }

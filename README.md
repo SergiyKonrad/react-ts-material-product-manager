@@ -1,39 +1,77 @@
 # React TS Material Product Manager
 
-This project demonstrates a simple implementation of dynamic product loading using React, TypeScript and Axios.
-It fetches and displays product details, with a focus on handling loading states, error handling, debugging, and preparing the frontend for backend compatibility.
+A dynamic product management system built with React, TypeScript, and Material UI. This project demonstrates CRUD functionality, API integration using Axios, and a responsive user interface with features like product addition, deletion, and editing.
 
 ## Features
 
-- **Dynamic Product Loading**: Fetches and displays products dynamically.
-- **Axios Integration**: Uses Axios for API calls to fetch product data.
-- **Custom Hooks**: Manages product fetching with custom `useProducts` hook.
-- **Loader Component**: Displays a loading spinner while data is being fetched.
-- **Error Handling**: Displays error messages when the data fetching fails.
-- **Debugging Mode**: Centralized `DEBUG` flag controls notifications, enabling or suppressing messages to streamline development.
+- **Dynamic Product Management**:
+  - Add new products with validation for all fields.
+  - Edit existing products with an intuitive modal window.
+  - Delete products dynamically, with instant updates to the product list.
+- **Responsive UI**: Fully responsive layout using Material UI.
+- **Axios Integration**: Seamless API calls for fetching, adding, editing, and deleting products.
+- **Custom Hooks**:
+  - `useProducts`: Fetches and caches product data for optimized performance.
+  - `useAddProduct`: Handles API calls for adding products.
+  - `useUpdateProduct`: Manages product updates via API.
+  - `useDeleteProduct`: Handles API calls for deleting products.
+- **Loader Component**: Displays a spinner during API interactions.
+- **Error Handling**: Gracefully handles API failures with meaningful error messages.
+- **Toasts for Notifications**: Provides feedback for actions like product addition, deletion, and editing.
+- **Validation**: Implements robust client-side validation using Formik and Yup.
 - **Backend Compatibility**: Prepares frontend components for integration with a backend API, allowing seamless expansion to support full CRUD operations.
 
 ## How It Works
 
-- The `useProducts` hook fetches product data from an API using Axios.
-- The `Product` component renders details for each fetched product.
-- The `Loader` component displays a spinner while data is loading.
-- The `ErrorMessage` component shows error messages if the API call fails.
+### Components and Pages
 
-The project allows users to dynamically load products by clicking the "Load Next Product" button. This increments the product ID and fetches the next product from the API.
+1. **Pages**:
+
+   - `AddProductPage`: Page for adding new products with a form.
+   - `ProductPageMaterialUI`: Displays the product list with Material UI cards.
+   - `ProductsList` (formerly `ProductPage`): Lists all products with delete and edit options.
+
+2. **Components**:
+
+   - `Loader`: A reusable spinner for loading states.
+   - `ToastMessage`: Custom toast notifications with optional navigation support.
+   - `EditProductModal`: Modal window for editing products.
+   - `Product`: Renders individual product details.
+
+3. **Custom Hooks**:
+
+   - `useProducts`: Fetches and caches product data, supporting pagination and caching.
+   - `useAddProduct`: Adds new products via API calls.
+   - `useUpdateProduct`: Updates existing products with backend synchronization.
+   - `useDeleteProduct`: Deletes products with instant UI updates.
+
+   ### API Integration
+
+- Fetches product data from the backend and dynamically updates the UI.
+- Adds, edits, and deletes products via Axios-powered API requests.
+- Caches fetched products for optimized performance.
+
+### User Experience
+
+- Notifications:
+  - Success and error notifications for product actions using `react-toastify`.
+  - Intuitive navigation and validation messages for a smooth user experience.
+- Validation:
+  - Formik and Yup ensure only valid data is submitted.
 
 ## Running the App
 
 ### Clone the repository:
 
 ```bash
-git clone https://github.com/SergiyKonrad/react-ts-axios-project.git
+git clone https://github.com/SergiyKonrad/react-ts-material-product-manager.git
 ```
 
 Move to the project directory:
 
 ```
-cd react-ts-axios-project
+cd react-ts-material-product-manager
+
 ```
 
 To install the dependencies:

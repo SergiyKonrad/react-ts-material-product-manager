@@ -61,7 +61,7 @@ const ProductPage = () => {
     }
   }
 
-  //  --- optional approach instead to apply the DynamicButton ---
+  //  --- optional approach to apply the DynamicButton ---
   // const handleLoadNext = () => {
   //   setOffset((prevOffset) => prevOffset + limit)
   // }

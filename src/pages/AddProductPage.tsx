@@ -79,8 +79,8 @@ const AddProductPage = () => {
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
           margin="normal"
-          autoComplete="name"
-          // autoComplete="off"
+          // autoComplete="name"
+          autoComplete="on"
         />
         <TextField
           fullWidth
@@ -124,7 +124,7 @@ const AddProductPage = () => {
           error={formik.touched.image && Boolean(formik.errors.image)}
           helperText={formik.touched.image && formik.errors.image}
           margin="normal"
-          autoComplete="off"
+          autoComplete="on"
         />
         <Button
           type="submit"
