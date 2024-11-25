@@ -82,7 +82,7 @@ const EditProductModal = ({
         fetchProducts(0, limit, true) // Refresh the product list
 
         // NB. Custom toast notification with navigation support
-
+        // Can be  removed if navigating to the same page
         toast.info(
           <ToastMessage message="Go to Product page to see updated product." />,
         )
@@ -105,12 +105,14 @@ const EditProductModal = ({
             )}
             <input
               type="text"
+              id="name"
               name="name"
               className="w-full border rounded px-3 py-2 mb-3"
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Enter product name"
+              autoComplete="name"
             />
           </div>
 
@@ -122,12 +124,14 @@ const EditProductModal = ({
               </p>
             )}
             <textarea
+              id="description"
               name="description"
               className="w-full border rounded px-3 py-2 mb-3"
               value={formik.values.description}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Product Description"
+              autoComplete="off"
             />
           </div>
 
@@ -138,12 +142,14 @@ const EditProductModal = ({
             )}
             <input
               type="number"
+              id="price"
               name="price"
               className="w-full border rounded px-3 py-2 mb-3"
               value={formik.values.price}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Product Price"
+              autoComplete="off"
             />
           </div>
 
@@ -154,12 +160,14 @@ const EditProductModal = ({
             )}
             <input
               type="text"
+              id="image"
               name="image"
               className="w-full border rounded px-3 py-2 mb-3"
               value={formik.values.image}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Image URL"
+              autoComplete="off"
             />
           </div>
 

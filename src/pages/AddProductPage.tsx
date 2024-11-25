@@ -70,6 +70,7 @@ const AddProductPage = () => {
       <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth
+          id="name"
           name="name"
           label="Name"
           value={formik.values.name}
@@ -78,10 +79,12 @@ const AddProductPage = () => {
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
           margin="normal"
+          autoComplete="name"
           // autoComplete="off"
         />
         <TextField
           fullWidth
+          id="description"
           name="description"
           label="Description"
           multiline
@@ -94,9 +97,11 @@ const AddProductPage = () => {
           }
           helperText={formik.touched.description && formik.errors.description}
           margin="normal"
+          autoComplete="off"
         />
         <TextField
           fullWidth
+          id="price"
           name="price"
           label="Price"
           type="number"
@@ -106,9 +111,11 @@ const AddProductPage = () => {
           error={formik.touched.price && Boolean(formik.errors.price)}
           helperText={formik.touched.price && formik.errors.price}
           margin="normal"
+          autoComplete="off"
         />
         <TextField
           fullWidth
+          id="image"
           name="image"
           label="Image URL"
           value={formik.values.image}
@@ -117,6 +124,7 @@ const AddProductPage = () => {
           error={formik.touched.image && Boolean(formik.errors.image)}
           helperText={formik.touched.image && formik.errors.image}
           margin="normal"
+          autoComplete="off"
         />
         <Button
           type="submit"
