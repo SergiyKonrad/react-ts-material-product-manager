@@ -38,12 +38,25 @@ const ProductPage = () => {
     fetchProducts(offset, limit) // Refresh products after editing
   }
 
+  // const handleDelete = async (id: string) => {
+  //   if (window.confirm('Are you sure you want to delete this product?')) {
+  //     try {
+  //       await deleteProduct(id)
+  //       fetchProducts(offset, limit) // Refresh product list after deletion
+  //     } catch {
+  //       console.error('Failed to delete product:', error)
+  //     }
+  //   }
+  // }
+
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await deleteProduct(id)
-        fetchProducts(offset, limit) // Refresh product list after deletion
-      } catch {
+        await deleteProduct(id) // API call to delete the product
+        const updatedOffset = Math.max(offset - limit, 0) // Adjust the offset
+        await fetchProducts(updatedOffset, limit, true) // Fetch updated product list
+        setOffset(updatedOffset) // Update the offset state
+      } catch (error) {
         console.error('Failed to delete product:', error)
       }
     }
