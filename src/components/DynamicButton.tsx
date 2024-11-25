@@ -22,3 +22,6 @@ const DynamicButton = styled(Button, {
 }))
 
 export default DynamicButton
+
+//  In the styled-components or Material-UI styled utility, shouldForwardProp determines which props should not be forwarded to the DOM element.
+//  Props like isEmpty are used for styling and are not valid DOM attributes. shouldForwardProp ensures that isEmpty doesn't get passed down to the DOM, avoiding errors and keeping your components clean.

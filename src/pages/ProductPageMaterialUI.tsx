@@ -1,3 +1,5 @@
+//  Product page
+
 import React, { useState, useEffect } from 'react'
 import { useProducts } from '../hooks/useProducts'
 import { useDeleteProduct } from '../hooks/useDeleteProduct'
@@ -69,7 +71,7 @@ const ProductPageMaterialUI = () => {
   return (
     <Container>
       <Typography variant="h4" align="center" gutterBottom>
-        Updated Product
+        Updated or Added Product
       </Typography>
 
       {loading && <Loader />}

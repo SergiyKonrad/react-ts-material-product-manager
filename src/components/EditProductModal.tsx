@@ -1,3 +1,5 @@
+// Modal window for editing products in the Products List page.
+
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -13,12 +15,6 @@ interface EditProductModalProps {
   limit: number
 }
 
-// const EditProductModal: React.FC<EditProductModalProps> = ({
-//   product,
-//   onClose,
-// }) => {
-//   const updateProduct = useUpdateProduct()
-
 const EditProductModal = ({
   product,
   onClose,
@@ -26,7 +22,6 @@ const EditProductModal = ({
 }: EditProductModalProps) => {
   const updateProduct = useUpdateProduct()
   const { fetchProducts } = useProducts() // Import fetchProducts here
-  // const limit = 1
 
   const formik = useFormik({
     initialValues: {
@@ -87,8 +82,9 @@ const EditProductModal = ({
         fetchProducts(0, limit, true) // Refresh the product list
 
         // NB. Custom toast notification with navigation support
+
         toast.info(
-          <ToastMessage message="Go to Product to see updated product." />,
+          <ToastMessage message="Go to Product page to see updated product." />,
         )
         onClose()
       } catch (error) {

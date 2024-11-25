@@ -1,7 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-// import { showError } from '../components/ToastNotification'
 import { Box, TextField, Button } from '@mui/material'
 import { useAddProduct } from '../hooks/useAddProduct'
 import { useNavigate } from 'react-router-dom'
@@ -20,19 +19,28 @@ const AddProductPage = () => {
     validationSchema: Yup.object({
       name: Yup.string()
         .required('Name or Title is required')
-        .max(30, 'Max 30 characters'),
+        .min(1, 'Name must be at least 1 character')
+        .max(50, 'Name must not exceed 50 characters')
+        .matches(
+          /^[a-zA-Z0-9.,!'’\- ]{1,50}$/,
+          'Invalid characters in product name',
+        ),
       description: Yup.string()
         .required('Description is required')
         .min(10, 'Description must be at least 10 characters')
-        .max(200, 'Description must not exceed 200 characters'),
+        .max(200, 'Description must not exceed 200 characters')
+        .matches(
+          /^[a-zA-Z0-9.,!'’+\- ]{10,200}$/,
+          'Invalid characters in product description',
+        ),
       price: Yup.number()
         .required('Price is required')
         .min(1, 'Price must be greater than 0')
-        .max(9999, 'Price must be less than 10,000'),
-      image: Yup.string()
-        // .required('Image URL is required'),
-        .url('Invalid URL format')
-        .notRequired(), // Makes the field optional
+        .max(9999, 'Price must be less than 10,000')
+        .typeError('Price must be a valid number'),
+
+      image: Yup.string().url('Invalid URL format').notRequired(), // Makes the field optional
+      // .required('Image URL is required'),
     }),
 
     onSubmit: async (values) => {
@@ -47,7 +55,7 @@ const AddProductPage = () => {
 
         await addProduct(newProduct) // Add product using the hook
         navigate('/')
-        // navigate('/product-page') // Go to ProductPage
+        // navigate('/product-page') // to go to ProductPage (Products List)
 
         formik.resetForm()
       } catch (error) {

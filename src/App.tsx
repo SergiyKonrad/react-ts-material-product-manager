@@ -5,10 +5,9 @@ import {
   Route,
   NavLink,
 } from 'react-router-dom'
-import ProductPage from './pages/ProductPage'
+import ProductsList from './pages/ProductsList'
 import ProductPageMaterialUI from './pages/ProductPageMaterialUI'
 import AddProductPage from './pages/AddProductPage'
-// .
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -63,7 +62,7 @@ function App() {
         {/* Define Routes */}
         <Routes>
           <Route path="/" element={<ProductPageMaterialUI />} />
-          <Route path="/product-page" element={<ProductPage />} />
+          <Route path="/product-page" element={<ProductsList />} />
           <Route path="/add-product" element={<AddProductPage />} />
         </Routes>
       </div>

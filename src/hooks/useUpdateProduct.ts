@@ -9,7 +9,7 @@ export const useUpdateProduct = () => {
   ): Promise<IProduct> => {
     try {
       const response = await updateProduct(id, data)
-      toast.success('Product updated successfully!')
+      toast.success('Product updated successfully!', { autoClose: 1000 })
       return response.data // Return updated product data
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -32,23 +32,3 @@ export const useUpdateProduct = () => {
 
   return handleUpdateProduct
 }
-
-// import { updateProduct } from '../utils/api'
-// import { toast } from 'react-toastify'
-// import { IProduct } from '../models'
-
-// export const useUpdateProduct = () => {
-//   const handleUpdateProduct = async (id: string, data: Partial<IProduct>) => {
-//     try {
-//       const response = await updateProduct(id, data)
-//       toast.success('Product updated successfully!')
-//       return response.data // Return updated product data for further use if needed
-//     } catch (error) {
-//       toast.error('Failed to update product')
-//       console.error(error)
-//       throw error // Re-throw error for the calling component to handle
-//     }
-//   }
-
-//   return handleUpdateProduct
-// }

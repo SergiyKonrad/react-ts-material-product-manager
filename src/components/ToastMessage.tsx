@@ -13,10 +13,11 @@ const ToastMessage: React.FC<ToastMessageProps> = ({ message }) => {
       {message}
       <button
         onClick={() => navigate('/')}
+        // onClick={() => navigate('/product-page')} // Redirect to desired page
         style={{
           backgroundColor: '#1976d2',
           color: '#fff',
-          padding: '4px 12px',
+          padding: '4px 16px',
           fontSize: '12px',
           marginLeft: '10px',
           borderRadius: '3px',
