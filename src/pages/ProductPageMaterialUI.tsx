@@ -37,18 +37,31 @@ const ProductPageMaterialUI = () => {
   //   }
   // }
 
-  // const handleLoadNext = () => {
-  //   setOffset((prevOffset) => prevOffset + limit) // Increment offset to fetch the next batch
-  //   // fetchProducts(offset + limit, limit) // Fetch the next product batch.
+  // const handleDelete = async (id: string) => {
+  //   if (window.confirm('Are you sure you want to delete this product?')) {
+  //     try {
+  //       await deleteProduct(id)
+  //       fetchProducts(offset, limit) // Refresh the current batch
+  //     } catch {
+  //       console.error('Failed to delete product')
+  //     }
+  //   }
   // }
+  //  .
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await deleteProduct(id)
-        fetchProducts(offset, limit) // Refresh the current batch
-      } catch {
-        console.error('Failed to delete product')
+        // setProducts((prevProducts) =>
+        //   prevProducts.filter((product) => product.id !== id),
+        // ) // Optimistically update UI !?
+
+        await deleteProduct(id) // Call the delete API
+        const updatedOffset = Math.max(offset - limit, 0) // Calculate the new offset
+        await fetchProducts(updatedOffset, limit, true) // Fetch the previous or current batch
+        setOffset(updatedOffset) // Update the offset state
+      } catch (error) {
+        console.error('Failed to delete product:', error)
       }
     }
   }

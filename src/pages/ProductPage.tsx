@@ -67,7 +67,7 @@ const ProductPage = () => {
 
   return (
     <div>
-      <h1 className="text-center text-3xl font-bold mb-4 mt-0">Products</h1>
+      <h1 className="text-center text-4xl mb-4 mt-0">Products</h1>
       {loading && <Loader />}
       {error && <ErrorMessage error={error} />}
       {products.map((product) => (

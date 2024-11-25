@@ -88,7 +88,7 @@ const EditProductModal = ({
 
         // NB. Custom toast notification with navigation support
         toast.info(
-          <ToastMessage message="Go to Home page to see the updated product." />,
+          <ToastMessage message="Go to Product to see updated product." />,
         )
         onClose()
       } catch (error) {

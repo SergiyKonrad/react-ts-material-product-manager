@@ -45,7 +45,7 @@ function App() {
                 : 'text-blue-500 hover:underline'
             }
           >
-            Product Page
+            Products List
           </NavLink>
 
           <NavLink
