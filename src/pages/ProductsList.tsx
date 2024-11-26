@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { IProduct } from '../models'
 import { Product } from '../components/Products'
 import { useProducts } from '../hooks/useProducts'
+import EditProductModal from '../components/EditProductModal'
 import { useDeleteProduct } from '../hooks/useDeleteProduct'
 import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
-import EditProductModal from '../components/EditProductModal'
-import { IProduct } from '../models'
 import DynamicButton from '../components/DynamicButton'
 import { ButtonWrapper } from '../components/StyledComponents'
 

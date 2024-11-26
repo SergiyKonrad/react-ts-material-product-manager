@@ -1,6 +1,6 @@
 import { updateProduct } from '../utils/api'
-import { toast } from 'react-toastify'
 import { IProduct } from '../models'
+import { toast } from 'react-toastify'
 
 export const useUpdateProduct = () => {
   const handleUpdateProduct = async (

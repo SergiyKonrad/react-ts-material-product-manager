@@ -4,9 +4,9 @@ import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useUpdateProduct } from '../hooks/useUpdateProduct'
+import { useProducts } from '../hooks/useProducts'
 import { IProduct } from '../models'
 import { toast } from 'react-toastify'
-import { useProducts } from '../hooks/useProducts'
 import ToastMessage from '../components/ToastMessage'
 
 interface EditProductModalProps {
