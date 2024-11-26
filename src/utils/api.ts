@@ -4,7 +4,7 @@ const API = axios.create({
   baseURL: process.env.REACT_APP_API_URL || '/api', // Use the environment variable
 })
 
-export const getProducts = () => API.get('api/products')
+export const getProducts = () => API.get('/products')
 export const addProduct = (data: any) => API.post('/product', data)
 
 export const deleteProduct = (id: string) => API.delete(`/product/${id}`)
