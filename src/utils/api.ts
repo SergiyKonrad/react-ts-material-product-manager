@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || '/api', // Use .env variable
+  baseURL: process.env.REACT_APP_API_URL || '/api', // Use the environment variable
 })
 
 export const getProducts = () => API.get('/products')

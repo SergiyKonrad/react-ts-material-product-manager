@@ -15,7 +15,7 @@ const ProductPage = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null)
   const [offset, setOffset] = useState(0)
-  const limit = 3 // Number of products per batch
+  const limit = 5 // Number of products per batch
 
   // Fetch products whenever the offset changes
   useEffect(() => {
