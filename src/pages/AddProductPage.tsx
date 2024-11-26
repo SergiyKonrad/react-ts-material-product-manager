@@ -117,7 +117,7 @@ const AddProductPage = () => {
           fullWidth
           id="image"
           name="image"
-          label="Image URL"
+          label="Image URL (optional)"
           value={formik.values.image}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
