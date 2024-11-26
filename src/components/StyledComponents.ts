@@ -13,10 +13,10 @@ export const StyledCard = styled(Card)({
 })
 
 export const StyledImage = styled('img')({
-  height: '120px',
-  width: '80px',
+  height: '300px',
+  width: '200px',
   objectFit: 'contain',
-  margin: '20px auto 0',
+  margin: '10px auto 0',
 })
 
 export const DeleteCross = styled(Button)({

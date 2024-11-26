@@ -29,8 +29,8 @@ function App() {
             to="/"
             className={({ isActive }) =>
               isActive
-                ? 'text-blue-600 font-bold underline'
-                : 'text-blue-500 hover:underline'
+                ? 'text-blue-500 font-bold underline'
+                : 'text-blue-700 hover:underline'
             }
           >
             Product
@@ -40,8 +40,8 @@ function App() {
             to="/product-page"
             className={({ isActive }) =>
               isActive
-                ? 'text-blue-600 font-bold underline'
-                : 'text-blue-500 hover:underline'
+                ? 'text-blue-500 font-bold underline'
+                : 'text-blue-700 hover:underline'
             }
           >
             Products List
@@ -51,8 +51,8 @@ function App() {
             to="/add-product"
             className={({ isActive }) =>
               isActive
-                ? 'text-blue-600 font-bold underline'
-                : 'text-blue-500 hover:underline'
+                ? 'text-blue-500 font-bold underline'
+                : 'text-blue-700 hover:underline'
             }
           >
             Add Product

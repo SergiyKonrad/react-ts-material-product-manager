@@ -107,7 +107,7 @@ const ProductPage = () => {
           >
             {products.length === 0
               ? 'Back to First Product'
-              : 'Get Another Product'}
+              : 'Get Another Products'}
           </DynamicButton>
         </ButtonWrapper>
       </div>
