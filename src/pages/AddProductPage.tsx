@@ -60,7 +60,7 @@ const AddProductPage = () => {
         formik.resetForm()
       } catch (error) {
         console.error('Error adding product:', error)
-        // showError('Failed to add product')
+        // showError('Failed to add product').
       }
     },
   })
@@ -78,9 +78,9 @@ const AddProductPage = () => {
           onBlur={formik.handleBlur}
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
+          autoComplete="on"
           margin="normal"
           // autoComplete="name"
-          autoComplete="on"
         />
         <TextField
           fullWidth
