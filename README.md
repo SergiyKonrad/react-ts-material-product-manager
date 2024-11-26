@@ -2,6 +2,8 @@
 
 A dynamic product management system built with React, TypeScript, and Material UI. This project demonstrates CRUD functionality, API integration using Axios, and a responsive user interface with features like product addition, deletion, and editing.
 
+Explore the full project at [React TS Material Product Manager](https://https://react-ts-axios-project.vercel.app/).
+
 ## Features
 
 - **Dynamic Product Management**:

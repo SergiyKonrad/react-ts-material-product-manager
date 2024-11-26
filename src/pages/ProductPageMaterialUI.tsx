@@ -1,5 +1,4 @@
 //  Product page
-
 import React, { useState, useEffect } from 'react'
 import { useProducts } from '../hooks/useProducts'
 import { useDeleteProduct } from '../hooks/useDeleteProduct'
