@@ -81,6 +81,13 @@ export const ItalicSmallText = styled('p')({
   color: '#666', // Optional: A lighter color
 })
 
+// export const LoaderWrapper = styled('div')({
+//   display: 'flex',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   textAlign: 'center',
+// })
+
 // export const LoadNextButton = styled(Button)({
 //   marginTop: '16px',
 // })

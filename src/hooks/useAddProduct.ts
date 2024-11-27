@@ -22,7 +22,7 @@ export const useAddProduct = () => {
       } else {
         console.error('Unknown error:', error)
       }
-      toast.error('Failed to add product')
+      toast.error('Failed to add product', { autoClose: 2000 })
     }
   }
 

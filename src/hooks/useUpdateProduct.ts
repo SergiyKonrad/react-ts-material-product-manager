@@ -19,7 +19,9 @@ export const useUpdateProduct = () => {
         if ('response' in error && (error as any).response?.data?.message) {
           toast.error((error as any).response.data.message)
         } else {
-          toast.error('Failed to update product')
+          toast.error('Failed to update product.Please try again.', {
+            autoClose: 2000,
+          })
         }
       } else {
         console.error('Unknown error:', error)

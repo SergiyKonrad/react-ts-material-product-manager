@@ -1,4 +1,4 @@
-// NB. Modal window for editing products in the Products List page.
+// NB. Modal window with custom toast notification for editing products in the Products List page.
 
 import React, { useCallback } from 'react'
 import { useFormik } from 'formik'
@@ -86,11 +86,14 @@ const EditProductModal = ({
           // NB. Custom toast notification with navigation support
           // Can be  removed if navigating to the same page
           toast.info(
-            <ToastMessage message="Go to Product page to see updated product." />,
+            <ToastMessage message="Go to Product page to see updated product..." />,
           )
           onClose()
         } catch (error) {
           console.error('Error updating product:', error)
+          // toast.error('Failed to update product. Please try again.', {
+          //   autoClose: 2000,
+          // })
         }
       },
       [fetchProducts, limit, onClose, product, updateProduct],

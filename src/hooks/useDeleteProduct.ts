@@ -7,7 +7,7 @@ export const useDeleteProduct = () => {
       await axios.delete(`${process.env.REACT_APP_API_URL}/product/${id}`)
       toast.success('Product deleted successfully!', { autoClose: 2000 })
     } catch (error) {
-      toast.error('Failed to delete product', { autoClose: 4000 })
+      toast.error('Failed to delete product', { autoClose: 2000 })
       console.error(error)
     }
   }
