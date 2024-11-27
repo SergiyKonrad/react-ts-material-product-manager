@@ -7,7 +7,11 @@ import { useDeleteProduct } from '../hooks/useDeleteProduct'
 import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
 import DynamicButton from '../components/DynamicButton'
-import { ButtonWrapper } from '../components/StyledComponents'
+import {
+  ButtonWrapper,
+  buttonStyles,
+  Spinner,
+} from '../components/StyledComponents'
 
 const ProductPage = () => {
   const { products, loading, error, fetchProducts } = useProducts()
@@ -96,18 +100,31 @@ const ProductPage = () => {
       )}
 
       {/* Get Another Product Button */}
+
       <div>
-        <ButtonWrapper>
+        <ButtonWrapper style={buttonStyles}>
           <DynamicButton
             isEmpty={products.length === 0}
             variant="contained"
-            onClick={handleLoadNext}
-            // disabled={loading || products.length === 0}
+            onClick={() => {
+              requestAnimationFrame(() => handleLoadNext())
+            }}
             disabled={loading}
+            aria-label={
+              products.length === 0
+                ? 'Back to First Product'
+                : 'Get Another Products'
+            }
           >
-            {products.length === 0
-              ? 'Back to First Product'
-              : 'Get Another Products'}
+            {loading ? (
+              <Spinner />
+            ) : (
+              <>
+                {products.length === 0
+                  ? 'Back to First Product'
+                  : 'Get Another Products'}
+              </>
+            )}
           </DynamicButton>
         </ButtonWrapper>
       </div>

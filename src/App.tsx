@@ -22,15 +22,13 @@ function App() {
       <div className="container mx-auto pt-5 px-4 space-y-5">
         <ToastContainer />
 
-        {/* Navigation Links */}
-        {/* <nav className="flex justify-between max-w-2xl mx-auto mb-4"> */}
         <nav className="flex justify-around mb-4">
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive
-                ? 'text-blue-500 font-bold underline'
-                : 'text-blue-700 hover:underline'
+                ? 'text-green-500 font-bold underline text-lg'
+                : 'text-blue-700 hover:underline text-lg'
             }
           >
             Product
@@ -40,8 +38,8 @@ function App() {
             to="/product-page"
             className={({ isActive }) =>
               isActive
-                ? 'text-blue-500 font-bold underline'
-                : 'text-blue-700 hover:underline'
+                ? 'text-green-500 font-bold  underline text-lg'
+                : 'text-blue-700 hover:underline text-lg'
             }
           >
             Products List
@@ -51,8 +49,8 @@ function App() {
             to="/add-product"
             className={({ isActive }) =>
               isActive
-                ? 'text-blue-500 font-bold underline'
-                : 'text-blue-700 hover:underline'
+                ? 'text-green-500 font-bold underline text-lg'
+                : 'text-blue-700 hover:underline text-lg'
             }
           >
             Add Product

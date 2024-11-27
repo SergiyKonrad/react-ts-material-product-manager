@@ -43,7 +43,25 @@ export const ButtonWrapper = styled(Box)({
   justifyContent: 'center',
   marginTop: '8px !important',
   marginBottom: '32px !important',
+  position: 'relative',
 })
+
+export const Spinner = styled('div')({
+  border: '3px solid transparent',
+  borderTop: '3px solid #22c55e', // Green spinner color
+  borderRadius: '50%',
+  width: '16px',
+  height: '16px',
+  animation: 'spin 0.8s linear infinite',
+  position: 'relative',
+})
+
+export const buttonStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '8px',
+}
 
 // export const LoadNextButton = styled(Button)({
 //   marginTop: '16px',

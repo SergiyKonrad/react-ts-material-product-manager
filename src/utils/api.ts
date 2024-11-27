@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+// Added log to verify the value in production
+// console.log('API URL:', process.env.REACT_APP_API_URL)
+
 const API = axios.create({
   baseURL: process.env.REACT_APP_API_URL || '/api', // Use the environment variable
 })
