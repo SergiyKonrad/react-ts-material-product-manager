@@ -25,8 +25,6 @@ Explore the full project at [React TS Material Product Manager](https://react-ts
 - **Validation**: Implements robust client-side validation using Formik and Yup.
 - **Backend Compatibility**: Frontend components prepared for integration with a backend API, supporting full CRUD operations.
 
----
-
 ## How It Works
 
 ### Components and Pages

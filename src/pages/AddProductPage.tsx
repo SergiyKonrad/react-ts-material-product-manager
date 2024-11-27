@@ -24,7 +24,7 @@ const AddProductPage = () => {
         .min(1, 'Name must be at least 1 character')
         .max(50, 'Name must not exceed 50 characters')
         .matches(
-          /^[a-zA-Z0-9.,!'’\- ]{1,50}$/,
+          /^[a-zA-Z0-9.,!'’+\-\n ]{10,200}$/,
           'Invalid characters in product name',
         ),
       description: Yup.string()
@@ -32,7 +32,7 @@ const AddProductPage = () => {
         .min(10, 'Description must be at least 10 characters')
         .max(200, 'Description must not exceed 200 characters')
         .matches(
-          /^[a-zA-Z0-9.,!'’+\- ]{10,200}$/,
+          /^[a-zA-Z0-9.,!'’+\-\n ]{10,200}$/,
           'Invalid characters in product description',
         ),
       price: Yup.number()
