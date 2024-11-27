@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { IProduct } from '../models'
 import { Modal } from './Modal'
 import { ItalicSmallText } from './StyledComponents'
+import { Spinner } from '../components/StyledComponents'
 
 interface ProductProps {
   product: IProduct
@@ -13,7 +14,8 @@ export function Product({ product, onDelete }: ProductProps) {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
-  const handleDeleteClick = async () => {
+  // Handle delete click
+  const handleDeleteClick = useCallback(async () => {
     setIsDeleting(true)
     setShowDeleteModal(false)
 
@@ -27,7 +29,12 @@ export function Product({ product, onDelete }: ProductProps) {
     } finally {
       setIsDeleting(false)
     }
-  }
+  }, [product, onDelete])
+
+  // Handle cancel click
+  const handleCancelClick = useCallback(() => {
+    setShowDeleteModal(false)
+  }, [])
 
   const btnBgClassName = details
     ? 'bg-yellow-400 hover:bg-yellow-500'
@@ -65,7 +72,7 @@ export function Product({ product, onDelete }: ProductProps) {
         {details ? 'Hide Details' : 'Show Details'}
       </button>
 
-      {/* Product Rating Details */}
+      {/* Product Rating Details (optional)*/}
       {details && (
         <div className="text-center mt-2">
           <p>{product.description || 'No description available'}</p>
@@ -83,10 +90,7 @@ export function Product({ product, onDelete }: ProductProps) {
       {/* Delete Button */}
       <button
         className="bg-red-500 text-white p-2 mt-2 rounded hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
-        onClick={useCallback(
-          () => setShowDeleteModal(true),
-          [setShowDeleteModal],
-        )}
+        onClick={() => setShowDeleteModal(true)}
         aria-label="Delete this product"
       >
         Delete Product
@@ -97,20 +101,19 @@ export function Product({ product, onDelete }: ProductProps) {
         <Modal>
           <p>Are you sure you want to delete this product?</p>
           <div className="flex justify-between mt-4">
+            {/* Confirm Delete Button */}
             <button
               className="bg-red-500 hover:bg-red-600 text-white p-2 rounded w-full mr-2 flex items-center justify-center"
-              onClick={handleDeleteClick}
+              onClick={() => requestAnimationFrame(handleDeleteClick)}
               disabled={isDeleting}
               aria-label="Confirm delete"
             >
-              {isDeleting ? (
-                <span className="loader mr-2">Loading...</span>
-              ) : (
-                'Confirm Delete'
-              )}
+              {isDeleting ? <Spinner /> : 'Confirm Delete'}
             </button>
+
+            {/* Cancel Button */}
             <button
-              onClick={() => setShowDeleteModal(false)}
+              onClick={handleCancelClick}
               className="bg-gray-300 hover:bg-gray-400 text-black p-2 rounded w-full"
               aria-label="Cancel delete action"
             >

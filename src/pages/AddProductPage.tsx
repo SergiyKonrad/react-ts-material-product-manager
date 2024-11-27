@@ -4,6 +4,8 @@ import * as Yup from 'yup'
 import { useAddProduct } from '../hooks/useAddProduct'
 import { useNavigate } from 'react-router-dom'
 import { Box, TextField, Button } from '@mui/material'
+import { Spinner } from '../components/StyledComponents'
+import { toast } from 'react-toastify'
 
 const AddProductPage = () => {
   const navigate = useNavigate()
@@ -59,8 +61,10 @@ const AddProductPage = () => {
 
         formik.resetForm()
       } catch (error) {
-        console.error('Error adding product:', error)
-        // showError('Failed to add product').
+        // console.error('Error adding product:', error)
+        toast.error('Failed to add product. Please try again.', {
+          autoClose: 2000,
+        })
       }
     },
   })
@@ -126,13 +130,26 @@ const AddProductPage = () => {
           margin="normal"
           autoComplete="on"
         />
+
         <Button
           type="submit"
           variant="contained"
           color="primary"
-          sx={{ marginTop: 2 }}
+          sx={{
+            marginTop: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px', // Spacing between text and spinner
+          }}
+          disabled={formik.isSubmitting} // Disable button while submitting
+          aria-label="Add Product"
         >
-          Add Product
+          {formik.isSubmitting ? (
+            <Spinner /> // Spinner from GlobalStyles
+          ) : (
+            'Add Product'
+          )}
         </Button>
       </form>
     </Box>
