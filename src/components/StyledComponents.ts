@@ -1,5 +1,17 @@
 import { styled } from '@mui/material/styles'
 import { Box, Card, Button } from '@mui/material'
+import { createGlobalStyle } from 'styled-components'
+
+export const GlobalStyles = createGlobalStyle`
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`
 
 // Styled components
 export const Container = styled(Box)({
@@ -52,7 +64,7 @@ export const Spinner = styled('div')({
   borderRadius: '50%',
   width: '16px',
   height: '16px',
-  animation: 'spin 0.8s linear infinite',
+  animation: 'spin 0.5s linear infinite',
   position: 'relative',
 })
 
@@ -63,12 +75,12 @@ export const buttonStyles = {
   gap: '8px',
 }
 
-// export const LoadNextButton = styled(Button)({
-//   marginTop: '16px',
-// })
-
 export const ItalicSmallText = styled('p')({
   fontStyle: 'italic',
   fontSize: '0.875rem', // 14px
   color: '#666', // Optional: A lighter color
 })
+
+// export const LoadNextButton = styled(Button)({
+//   marginTop: '16px',
+// })

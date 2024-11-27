@@ -26,11 +26,6 @@ const ProductPage = () => {
     fetchProducts(offset, limit)
   }, [offset, fetchProducts, limit])
 
-  // useEffect(() => {
-  //   fetchProducts(0, limit) // Always fetch the first batch of products
-  //   setOffset(0)
-  // }, [fetchProducts, limit])
-
   const openEditModal = (product: IProduct) => {
     setSelectedProduct(product)
     setEditModalOpen(true)
@@ -64,11 +59,6 @@ const ProductPage = () => {
       setOffset((prevOffset) => prevOffset + limit)
     }
   }
-
-  //  --- optional approach to apply the DynamicButton ---
-  // const handleLoadNext = () => {
-  //   setOffset((prevOffset) => prevOffset + limit)
-  // }
 
   return (
     <div>
@@ -133,3 +123,13 @@ const ProductPage = () => {
 }
 
 export default ProductPage
+
+// useEffect(() => {
+//   fetchProducts(0, limit) // in order to always fetch the first batch of products
+//   setOffset(0)
+// }, [fetchProducts, limit])
+
+//  --- optional approach to apply the DynamicButton
+// const handleLoadNext = () => {
+//   setOffset((prevOffset) => prevOffset + limit)
+// }

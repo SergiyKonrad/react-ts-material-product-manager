@@ -1,6 +1,6 @@
-// Modal window for editing products in the Products List page.
+// NB. Modal window for editing products in the Products List page.
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useUpdateProduct } from '../hooks/useUpdateProduct'
@@ -23,7 +23,12 @@ const EditProductModal = ({
   const updateProduct = useUpdateProduct()
   const { fetchProducts } = useProducts() // Import fetchProducts here
 
-  const formik = useFormik({
+  const formik = useFormik<{
+    name: string
+    description: string
+    price: number
+    image: string
+  }>({
     initialValues: {
       name: product.name || '',
       description: product.description || '',
@@ -59,38 +64,37 @@ const EditProductModal = ({
       image: Yup.string()
         .required('Image URL is required')
         .url('Invalid URL format'),
-      // .matches(
-      //   /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)$/,
-      //   'Image URL must be a valid link to an image (e.g., .jpg, .png)',
-      // ),
     }),
 
-    onSubmit: async (values) => {
-      // Compare current values with initial product values
-      if (
-        values.name === product.name &&
-        values.description === product.description &&
-        values.price === product.price &&
-        values.image === product.image
-      ) {
-        alert('No changes were made.')
-        return
-      }
+    onSubmit: useCallback(
+      async (values) => {
+        // Compare current values with initial product values
+        if (
+          values.name === product.name &&
+          values.description === product.description &&
+          values.price === product.price &&
+          values.image === product.image
+        ) {
+          alert('No changes were made.')
+          return
+        }
 
-      try {
-        await updateProduct(product._id || product.id!.toString(), values)
-        fetchProducts(0, limit, true) // Refresh the product list
+        try {
+          await updateProduct(product._id || product.id!.toString(), values)
+          fetchProducts(0, limit, true) // Refresh the product list
 
-        // NB. Custom toast notification with navigation support
-        // Can be  removed if navigating to the same page
-        toast.info(
-          <ToastMessage message="Go to Product page to see updated product." />,
-        )
-        onClose()
-      } catch (error) {
-        console.error('Error updating product:', error)
-      }
-    },
+          // NB. Custom toast notification with navigation support
+          // Can be  removed if navigating to the same page
+          toast.info(
+            <ToastMessage message="Go to Product page to see updated product." />,
+          )
+          onClose()
+        } catch (error) {
+          console.error('Error updating product:', error)
+        }
+      },
+      [fetchProducts, limit, onClose, product, updateProduct],
+    ),
   })
 
   return (
@@ -175,14 +179,14 @@ const EditProductModal = ({
           <div className="flex gap-4 mt-6 justify-center">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-600"
+              className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
               aria-label="Save changes"
             >
               Save
             </button>
             <button
               type="button"
-              className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded w-full"
+              className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded w-full focus:outline-none focus:ring focus:ring-gray-400"
               onClick={onClose}
               aria-label="Cancel and close modal"
             >
@@ -196,3 +200,10 @@ const EditProductModal = ({
 }
 
 export default EditProductModal
+
+// Added <{ name: string; description: string; price: number; image: string }> to useFormik to explicitly define the shape of the values object.
+
+/* .matches(
+        /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)$/,
+        'Image URL must be a valid link to an image (e.g., .jpg, .png)',
+      ),*/

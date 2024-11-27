@@ -55,7 +55,7 @@ const AddProductPage = () => {
 
         await addProduct(newProduct) // Add product using the hook
         navigate('/')
-        // navigate('/product-page') // to go to ProductPage (Products List)
+        // navigate('/product-page') // to go to Product page (Products List)
 
         formik.resetForm()
       } catch (error) {

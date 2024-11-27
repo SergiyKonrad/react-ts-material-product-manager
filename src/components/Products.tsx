@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { IProduct } from '../models'
 import { Modal } from './Modal'
 import { ItalicSmallText } from './StyledComponents'
@@ -82,8 +82,11 @@ export function Product({ product, onDelete }: ProductProps) {
 
       {/* Delete Button */}
       <button
-        className="bg-red-500 text-white p-2 mt-2 rounded hover:bg-red-600"
-        onClick={() => setShowDeleteModal(true)}
+        className="bg-red-500 text-white p-2 mt-2 rounded hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300"
+        onClick={useCallback(
+          () => setShowDeleteModal(true),
+          [setShowDeleteModal],
+        )}
         aria-label="Delete this product"
       >
         Delete Product

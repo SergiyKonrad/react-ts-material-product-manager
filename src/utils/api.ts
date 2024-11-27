@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// Added log to verify the value in production
+// Added log to verify the value in production if needed
 // console.log('API URL:', process.env.REACT_APP_API_URL)
 
 const API = axios.create({

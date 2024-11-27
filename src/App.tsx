@@ -8,6 +8,7 @@ import {
 import ProductsList from './pages/ProductsList'
 import ProductPageMaterialUI from './pages/ProductPageMaterialUI'
 import AddProductPage from './pages/AddProductPage'
+import { GlobalStyles } from './components/StyledComponents'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -20,6 +21,7 @@ function App() {
       }}
     >
       <div className="container mx-auto pt-5 px-4 space-y-5">
+        <GlobalStyles />
         <ToastContainer />
 
         <nav className="flex justify-around mb-4">
