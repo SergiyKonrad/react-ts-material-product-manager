@@ -4,6 +4,8 @@ A dynamic product management system built with React, TypeScript, and Material U
 
 Explore the full project at [React TS Material Product Manager](https://react-ts-material-product-manager.vercel.app/).
 
+---
+
 ## Features
 
 - **Dynamic Product Management**:
@@ -21,33 +23,35 @@ Explore the full project at [React TS Material Product Manager](https://react-ts
 - **Error Handling**: Gracefully handles API failures with meaningful error messages.
 - **Toasts for Notifications**: Provides feedback for actions like product addition, deletion, and editing.
 - **Validation**: Implements robust client-side validation using Formik and Yup.
-- **Backend Compatibility**: Prepares frontend components for integration with a backend API, allowing seamless expansion to support full CRUD operations.
+- **Backend Compatibility**: Frontend components prepared for integration with a backend API, supporting full CRUD operations.
+
+---
 
 ## How It Works
 
 ### Components and Pages
 
-1. **Pages**:
+#### **Pages**
 
-   - `AddProductPage`: Page for adding new products with a form.
-   - `ProductPageMaterialUI`: Displays the product list with Material UI cards.
-   - `ProductsList` (formerly `ProductPage`): Lists all products with delete and edit options.
+- **`AddProductPage`**: Page for adding new products with a form.
+- **`ProductPageMaterialUI`**: Displays the product list using Material UI cards.
+- **`ProductsList`**: Lists all products with delete and edit options.
 
-2. **Components**:
+#### **Components**
 
-   - `Loader`: A reusable spinner for loading states.
-   - `ToastMessage`: Custom toast notifications with optional navigation support.
-   - `EditProductModal`: Modal window for editing products.
-   - `Product`: Renders individual product details.
+- **`Loader`**: A reusable spinner for loading states.
+- **`ToastMessage`**: Custom toast notifications with optional navigation support.
+- **`EditProductModal`**: Modal window for editing products.
+- **`Product`**: Renders individual product details.
 
-3. **Custom Hooks**:
+#### **Custom Hooks**
 
-   - `useProducts`: Fetches and caches product data, supporting pagination and caching.
-   - `useAddProduct`: Adds new products via API calls.
-   - `useUpdateProduct`: Updates existing products with backend synchronization.
-   - `useDeleteProduct`: Deletes products with instant UI updates.
+- **`useProducts`**: Fetches and caches product data, supporting pagination and caching.
+- **`useAddProduct`**: Adds new products via API calls.
+- **`useUpdateProduct`**: Updates existing products with backend synchronization.
+- **`useDeleteProduct`**: Deletes products with instant UI updates.
 
-   ### API Integration
+### API Integration
 
 - Fetches product data from the backend and dynamically updates the UI.
 - Adds, edits, and deletes products via Axios-powered API requests.
@@ -55,11 +59,12 @@ Explore the full project at [React TS Material Product Manager](https://react-ts
 
 ### User Experience
 
-- Notifications:
+- **Notifications**:
   - Success and error notifications for product actions using `react-toastify`.
-  - Intuitive navigation and validation messages for a smooth user experience.
-- Validation:
-  - Formik and Yup ensure only valid data is submitted.
+  - Intuitive navigation and validation messages ensure a smooth user experience.
+- **Validation**:
+
+  - Formik and Yup enforce strict data validation to ensure only valid data is submitted.
 
 ## Running the App
 
@@ -71,18 +76,18 @@ git clone https://github.com/SergiyKonrad/react-ts-material-product-manager.git
 
 Move to the project directory:
 
-```
+```bash
 cd react-ts-material-product-manager
 
 ```
 
-To install the dependencies:
+Install the dependencies:
 
 ```bash
 npm install
 ```
 
-To start the development server:
+Start the development server:
 
 ```bash
 npm start
@@ -97,7 +102,7 @@ This project is deployed to Vercel at the following link:
 
 ## Contributions
 
-Feel free to open an issue or submit a pull request if you'd like to contribute to this project.
+We welcome your contributions! Feel free to open an issue or submit a pull request to suggest improvements or add new features to this project. All ideas and enhancements are appreciated!
 
 ## License
 
