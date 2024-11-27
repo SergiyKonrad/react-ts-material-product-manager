@@ -8,6 +8,7 @@ import { useProducts } from '../hooks/useProducts'
 import { IProduct } from '../models'
 import { toast } from 'react-toastify'
 import ToastMessage from '../components/ToastMessage'
+import { Spinner } from './StyledComponents'
 
 interface EditProductModalProps {
   product: IProduct
@@ -51,7 +52,7 @@ const EditProductModal = ({
         .min(10, 'Description must be at least 10 characters')
         .max(200, 'Description must not exceed 200 characters')
         .matches(
-          /^[a-zA-Z0-9.,!'’+\- ]{10,200}$/,
+          /^[a-zA-Z0-9.,!'’+\-\n ]{10,200}$/,
           'Invalid characters in product description',
         ),
 
@@ -75,7 +76,10 @@ const EditProductModal = ({
           values.price === product.price &&
           values.image === product.image
         ) {
-          alert('No changes were made.')
+          // alert('No changes were made.')
+          toast.info('No changes were made.', {
+            autoClose: 2000,
+          }) // Using a toast for better UX
           return
         }
 
@@ -183,9 +187,10 @@ const EditProductModal = ({
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+              disabled={formik.isSubmitting} // Disable button while form is submitting
               aria-label="Save changes"
             >
-              Save
+              {formik.isSubmitting ? <Spinner /> : 'Save'}
             </button>
             <button
               type="button"

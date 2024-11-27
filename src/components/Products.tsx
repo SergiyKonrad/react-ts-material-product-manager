@@ -26,6 +26,8 @@ export function Product({ product, onDelete }: ProductProps) {
       } else {
         console.error('Product ID is undefined')
       }
+    } catch (error) {
+      console.error('Failed to delete product:', error)
     } finally {
       setIsDeleting(false)
     }
