@@ -50,7 +50,7 @@ const ProductPage = () => {
     }
   }
 
-  // Load the next batch of products
+  // Load the next batch of products.
   const handleLoadNext = () => {
     if (products.length < limit) {
       alert('No more products. Resetting to the first batch.')
