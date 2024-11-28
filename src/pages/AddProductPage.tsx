@@ -42,6 +42,7 @@ const AddProductPage = () => {
         .typeError('Price must be a valid number'),
 
       image: Yup.string().url('Invalid URL format').notRequired(), // Makes the field optional
+
       // .required('Image URL is required'),
     }),
 
@@ -57,7 +58,7 @@ const AddProductPage = () => {
 
         await addProduct(newProduct) // Add product using the hook
         navigate('/')
-        // navigate('/product-page') // to go to Product page (Products List)
+        // navigate('/product-page') // if wanna go to Products List (Product page)
 
         formik.resetForm()
       } catch (error) {

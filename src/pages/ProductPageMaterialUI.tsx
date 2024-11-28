@@ -3,6 +3,7 @@ import { useProducts } from '../hooks/useProducts'
 import { useDeleteProduct } from '../hooks/useDeleteProduct'
 import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
+import ModalDelete from '../components/ModalDelete'
 import { CardContent, Typography } from '@mui/material'
 
 import {
@@ -13,38 +14,73 @@ import {
   Spinner,
 } from '../components/StyledComponents'
 
-// Component
 const ProductPageMaterialUI = () => {
-  const [offset, setOffset] = useState(0) // Track the current offset.
-  const [isDeleting, setIsDeleting] = useState<string | null>(null) // Track the ID of the product being deleted.
+  const [offset, setOffset] = useState(0)
+  const [isDeleting, setIsDeleting] = useState<string | null>(null)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false) // Track if modal is open
+  const [productToDelete, setProductToDelete] = useState<string | null>(null) // Track the product ID
+  const [productNameToDelete, setProductNameToDelete] = useState<string | null>(
+    null,
+  ) // Track the product name
   const { products, loading, error, fetchProducts } = useProducts()
   const deleteProduct = useDeleteProduct()
   const limit = 1
 
   useEffect(() => {
-    fetchProducts(0, limit) // Always fetch the first batch of products.
-    setOffset(0) // Reset the offset to ensure updated products are displayed first.
+    let isMounted = true // Prevent state updates on unmounted components
+
+    const fetchInitialProducts = async () => {
+      try {
+        await fetchProducts(0, limit)
+        if (isMounted) {
+          setOffset(0)
+        }
+      } catch (error) {
+        console.error('Error fetching initial products:', error)
+      }
+    }
+
+    fetchInitialProducts()
+
+    return () => {
+      isMounted = false // Clean up
+    }
   }, [fetchProducts, limit])
 
   const handleDelete = useCallback(
     async (id: string) => {
-      if (window.confirm('Are you sure you want to delete this product?')) {
-        setIsDeleting(id) // Set the current product as being deleted.
+      setIsDeleting(id)
 
-        try {
-          await deleteProduct(id) // Call the delete API.
-          const updatedOffset = Math.max(offset - limit, 0) // Calculate the new offset.
-          await fetchProducts(updatedOffset, limit, true) // Fetch the updated product list.
-          setOffset(updatedOffset) // Update the offset state.
-        } catch (error) {
-          console.error('Failed to delete product:', error)
-        } finally {
-          setIsDeleting(null) // Reset the deleting state.
-        }
+      try {
+        await deleteProduct(id)
+        const updatedOffset = Math.max(offset - limit, 0)
+        await fetchProducts(updatedOffset, limit, true)
+        setOffset(updatedOffset)
+      } catch (error) {
+        console.error('Failed to delete product:', error)
+      } finally {
+        setIsDeleting(null)
       }
     },
     [deleteProduct, fetchProducts, limit, offset],
   )
+
+  const confirmDelete = (id: string, productName?: string) => {
+    setProductToDelete(id)
+    setProductNameToDelete(productName || null)
+    setDeleteModalOpen(true) // Open the modal
+  }
+
+  const handleConfirmDelete = async () => {
+    if (productToDelete) {
+      await handleDelete(productToDelete)
+    }
+    setDeleteModalOpen(false) // Close the modal
+  }
+
+  const handleCancelDelete = () => {
+    setDeleteModalOpen(false) // Close the modal without deleting.
+  }
 
   return (
     <Container>
@@ -58,12 +94,14 @@ const ProductPageMaterialUI = () => {
       {products.map((product) => (
         <StyledCard key={product._id || product.id} variant="outlined">
           <DeleteCross
-            onClick={() => handleDelete(product._id || product.id!.toString())}
+            onClick={() =>
+              confirmDelete(product._id || product.id!.toString(), product.name)
+            }
             aria-label="Delete product"
-            disabled={isDeleting === (product._id || product.id)} // Disable if this product is being deleted.
+            disabled={isDeleting === (product._id || product.id)}
           >
             {isDeleting === (product._id || product.id) ? (
-              <Spinner /> // Show spinner while deleting.
+              <Spinner />
             ) : (
               <>&times;</>
             )}
@@ -90,6 +128,14 @@ const ProductPageMaterialUI = () => {
           </CardContent>
         </StyledCard>
       ))}
+
+      {/* Modal for delete confirmation */}
+      <ModalDelete
+        open={deleteModalOpen}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+        productName={productNameToDelete || undefined}
+      />
     </Container>
   )
 }

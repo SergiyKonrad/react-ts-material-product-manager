@@ -211,6 +211,7 @@ export default EditProductModal
 
 // Added <{ name: string; description: string; price: number; image: string }> to useFormik to explicitly define the shape of the values object.
 
+// Optional
 /* .matches(
         /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)$/,
         'Image URL must be a valid link to an image (e.g., .jpg, .png)',

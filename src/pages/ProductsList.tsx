@@ -142,7 +142,7 @@ export default ProductPage
 //   setOffset(0)
 // }, [fetchProducts, limit])
 
-//  --- optional approach to apply the DynamicButton
+//  Optional approach to apply the DynamicButton
 // const handleLoadNext = () => {
 //   setOffset((prevOffset) => prevOffset + limit)
 // }

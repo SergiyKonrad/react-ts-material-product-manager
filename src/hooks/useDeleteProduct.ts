@@ -6,8 +6,14 @@ export const useDeleteProduct = () => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/product/${id}`)
       toast.success('Product deleted successfully!', { autoClose: 2000 })
-    } catch (error) {
-      toast.error('Failed to delete product', { autoClose: 2000 })
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.message === 'Network Error') {
+        toast.error('Network Error: Failed to connect to the server!', {
+          autoClose: 2000,
+        })
+      } else {
+        toast.error('Failed to delete product!', { autoClose: 2000 })
+      }
       console.error(error)
     }
   }

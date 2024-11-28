@@ -106,7 +106,7 @@ export function Product({ product, onDelete }: ProductProps) {
           <div className="flex justify-between mt-4">
             {/* Confirm Delete Button */}
             <button
-              className="bg-red-500 hover:bg-red-600 text-white p-2 rounded w-full mr-2 flex items-center justify-center"
+              className="bg-red-500 hover:bg-red-600 text-white p-2 rounded w-full mr-2 "
               onClick={() => requestAnimationFrame(handleDeleteClick)}
               disabled={isDeleting}
               aria-label="Confirm delete"
