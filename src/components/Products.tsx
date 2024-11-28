@@ -17,7 +17,7 @@ export function Product({ product, onDelete }: ProductProps) {
   // Handle delete click
   const handleDeleteClick = useCallback(async () => {
     setIsDeleting(true)
-    setShowDeleteModal(false)
+    // setShowDeleteModal(false)
 
     try {
       const productId = product._id || product.id
@@ -30,6 +30,7 @@ export function Product({ product, onDelete }: ProductProps) {
       console.error('Failed to delete product:', error)
     } finally {
       setIsDeleting(false)
+      setShowDeleteModal(false)
     }
   }, [product, onDelete])
 

@@ -1,3 +1,5 @@
+//  former Product Page
+
 import React, { useState, useEffect } from 'react'
 import { IProduct } from '../models'
 import { Product } from '../components/Products'
@@ -5,6 +7,7 @@ import { useProducts } from '../hooks/useProducts'
 import EditProductModal from '../components/EditProductModal'
 import { useDeleteProduct } from '../hooks/useDeleteProduct'
 import { Loader } from '../components/Loader'
+import { toast } from 'react-toastify'
 import { ErrorMessage } from '../components/ErrorMessage'
 import DynamicButton from '../components/DynamicButton'
 import {
@@ -21,7 +24,7 @@ const ProductPage = () => {
   const [offset, setOffset] = useState(0)
   const limit = 5 // Number of products per batch
 
-  // Fetch products whenever the offset changes
+  // Fetch products whenever the offset changes.
   useEffect(() => {
     fetchProducts(offset, limit)
   }, [offset, fetchProducts, limit])
@@ -34,26 +37,29 @@ const ProductPage = () => {
   const closeEditModal = () => {
     setSelectedProduct(null)
     setEditModalOpen(false)
-    fetchProducts(offset, limit) // Refresh products after editing
+    fetchProducts(offset, limit) // Refresh products after editing.
   }
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      try {
-        await deleteProduct(id) // API call to delete the product
-        const updatedOffset = Math.max(offset - limit, 0)
-        await fetchProducts(updatedOffset, limit, true)
-        setOffset(updatedOffset)
-      } catch (error) {
-        console.error('Failed to delete product:', error)
-      }
+    try {
+      await deleteProduct(id) // API call to delete the product
+      const updatedOffset = Math.max(offset - limit, 0)
+      await fetchProducts(updatedOffset, limit, true)
+      setOffset(updatedOffset)
+    } catch (error) {
+      console.error('Failed to delete product:', error)
     }
   }
 
   // Load the next batch of products.
   const handleLoadNext = () => {
     if (products.length < limit) {
-      alert('No more products. Resetting to the first batch.')
+      toast.info(
+        <p>
+          <strong> Add one to get started if no products are available!</strong>
+        </p>,
+        { autoClose: 4000 },
+      )
       setOffset(0)
     } else {
       setOffset((prevOffset) => prevOffset + limit)
@@ -97,7 +103,14 @@ const ProductPage = () => {
             isEmpty={products.length === 0}
             variant="contained"
             onClick={() => {
-              requestAnimationFrame(() => handleLoadNext())
+              requestAnimationFrame(() => {
+                handleLoadNext()
+                // Scroll to the top of the screen
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth',
+                })
+              })
             }}
             disabled={loading}
             aria-label={
