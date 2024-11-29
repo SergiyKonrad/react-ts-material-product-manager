@@ -12,7 +12,7 @@ export const useAddProduct = () => {
 
       if (response.status === 201) {
         // Only show success if the response is successful
-        toast.success('Product added successfully!', { autoClose: 2000 })
+        toast.success('Product added successfully!', { autoClose: 1000 })
       } else {
         throw new Error('Failed to add product')
       }

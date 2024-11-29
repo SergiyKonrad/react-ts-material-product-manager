@@ -51,12 +51,14 @@ const ProductPage = () => {
     }
   }
 
-  // Load the next batch of products.
   const handleLoadNext = () => {
     if (products.length < limit) {
       toast.info(
         <p>
-          <strong> Add one to get started if no products are available!</strong>
+          <strong>
+            {' '}
+            If no products are available, add one to get started!
+          </strong>
         </p>,
         { autoClose: 4000 },
       )
@@ -65,6 +67,11 @@ const ProductPage = () => {
       setOffset((prevOffset) => prevOffset + limit)
     }
   }
+
+  const emptyLabel = 'Back to First Product'
+  const nonEmptyLabel = 'Get Another Products'
+
+  const isEmpty = products.length === 0
 
   return (
     <div>
@@ -75,7 +82,7 @@ const ProductPage = () => {
         <div key={product._id || product.id} className="mb-4">
           <Product product={product} onDelete={handleDelete} />
 
-          {/* Add the Edit button */}
+          {/* Edit Button */}
           <button
             className="bg-green-500 text-white p-2 mt-2 rounded hover:bg-green-600"
             onClick={() => openEditModal(product)}
@@ -100,11 +107,12 @@ const ProductPage = () => {
       <div>
         <ButtonWrapper style={buttonStyles}>
           <DynamicButton
-            isEmpty={products.length === 0}
+            isEmpty={isEmpty}
             variant="contained"
             onClick={() => {
               requestAnimationFrame(() => {
                 handleLoadNext()
+
                 // Scroll to the top of the screen
                 window.scrollTo({
                   top: 0,
@@ -113,20 +121,12 @@ const ProductPage = () => {
               })
             }}
             disabled={loading}
-            aria-label={
-              products.length === 0
-                ? 'Back to First Product'
-                : 'Get Another Products'
-            }
+            aria-label={isEmpty ? emptyLabel : nonEmptyLabel} // Dynamic aria-label
           >
             {loading ? (
-              <Spinner />
+              <Spinner /> // Keeps the spinner for the loading state
             ) : (
-              <>
-                {products.length === 0
-                  ? 'Back to First Product'
-                  : 'Get Another Products'}
-              </>
+              <>{isEmpty ? emptyLabel : nonEmptyLabel}</>
             )}
           </DynamicButton>
         </ButtonWrapper>

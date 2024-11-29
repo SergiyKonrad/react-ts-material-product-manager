@@ -71,11 +71,22 @@ const ProductPageMaterialUI = () => {
     setDeleteModalOpen(true) // Open the modal
   }
 
+  // const handleConfirmDelete = async () => {
+  //   if (productToDelete) {
+  //     await handleDelete(productToDelete)
+  //   }
+  //   setDeleteModalOpen(false)
+  // }
+
   const handleConfirmDelete = async () => {
     if (productToDelete) {
-      await handleDelete(productToDelete)
+      setDeleteModalOpen(false) // Close the modal immediately
+      try {
+        await handleDelete(productToDelete) // Calls the hook, which handles deletion and toast feedback
+      } catch (error) {
+        console.error('Deletion failed:', error)
+      }
     }
-    setDeleteModalOpen(false) // Close the modal
   }
 
   const handleCancelDelete = () => {

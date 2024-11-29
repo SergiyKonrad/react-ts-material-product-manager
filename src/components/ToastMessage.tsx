@@ -19,7 +19,7 @@ const ToastMessage: React.FC<ToastMessageProps> = ({ message }) => {
           color: '#fff',
           padding: '4px 16px',
           fontSize: '12px',
-          marginLeft: '10px',
+          marginLeft: '4px',
           borderRadius: '3px',
           border: 'none',
           cursor: 'pointer',
