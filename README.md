@@ -1,6 +1,6 @@
 # React TS Material Product Manager
 
-A dynamic product management system built with React, TypeScript, and Material UI. This project demonstrates CRUD functionality, API integration using Axios, and a responsive user interface with features like product addition, deletion, and editing.
+A dynamic product management system built with React, TypeScript, Material UI, and Tailwind CSS. This project demonstrates CRUD functionality, API integration using Axios, and a responsive user interface with features like product addition, deletion, and editing.
 
 Explore the full project at [React TS Material Product Manager](https://react-ts-material-product-manager.vercel.app/).
 
@@ -12,7 +12,10 @@ Explore the full project at [React TS Material Product Manager](https://react-ts
   - Add new products with validation for all fields.
   - Edit existing products with an intuitive modal window.
   - Delete products dynamically, with instant updates to the product list.
-- **Responsive UI**: Fully responsive layout using Material UI.
+- **Responsive UI**: Fully responsive layout using Material UI and Tailwind CSS.
+- **Tailwind CSS Integration**:
+  - Tailwind CSS utilities are used alongside Material UI for flexible and efficient styling.
+  - Enhanced modal designs, buttons, and layout components with Tailwind classes.
 - **Axios Integration**: Seamless API calls for fetching, adding, editing, and deleting products.
 - **Custom Hooks**:
   - `useProducts`: Fetches and caches product data for optimized performance.
@@ -61,7 +64,6 @@ Explore the full project at [React TS Material Product Manager](https://react-ts
   - Success and error notifications for product actions using `react-toastify`.
   - Intuitive navigation and validation messages ensure a smooth user experience.
 - **Validation**:
-
   - Formik and Yup enforce strict data validation to ensure only valid data is submitted.
 
 ## Running the App
