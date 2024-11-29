@@ -90,7 +90,7 @@ const ProductPageMaterialUI = () => {
   }
 
   const handleCancelDelete = () => {
-    setDeleteModalOpen(false) // Close the modal without deleting.
+    setDeleteModalOpen(false) // Close the modal without deleting
   }
 
   return (
