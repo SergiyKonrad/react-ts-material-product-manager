@@ -18,15 +18,17 @@ const AddProductPage = () => {
       price: '',
       image: '',
     },
+
     validationSchema: Yup.object({
       name: Yup.string()
         .required('Name or Title is required')
         .min(1, 'Name must be at least 1 character')
         .max(50, 'Name must not exceed 50 characters')
         .matches(
-          /^[a-zA-Z0-9.,!'’+\- ]{10,200}$/,
+          /^[a-zA-Z0-9.,!'’+\- ]{1,50}$/,
           'Invalid characters in product name',
         ),
+
       description: Yup.string()
         .required('Description is required')
         .min(10, 'Description must be at least 10 characters')
@@ -41,8 +43,7 @@ const AddProductPage = () => {
         .max(9999, 'Price must be less than 10,000')
         .typeError('Price must be a valid number'),
 
-      image: Yup.string().url('Invalid URL format').notRequired(), // Makes the field optional
-
+      image: Yup.string().url('Invalid URL format').notRequired(), // Makes the field optional or
       // .required('Image URL is required'),
     }),
 

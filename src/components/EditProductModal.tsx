@@ -30,6 +30,7 @@ const EditProductModal = ({
     price: number
     image: string
   }>({
+    // enableReinitialize: true, // Reinitialize form when `product` prop changes
     initialValues: {
       name: product.name || '',
       description: product.description || '',
@@ -69,21 +70,24 @@ const EditProductModal = ({
 
     onSubmit: useCallback(
       async (values) => {
-        // Compare current values with initial product values
-        if (
-          values.name === product.name &&
-          values.description === product.description &&
-          values.price === product.price &&
-          values.image === product.image
-        ) {
-          // alert('No changes were made.')
+        // console.log('Formik Errors:', formik.errors); // Debug form errors
+
+        const hasChanges =
+          values.name !== product.name ||
+          values.description !== product.description ||
+          values.price !== product.price ||
+          values.image !== product.image
+
+        if (!hasChanges) {
           toast.info('No changes were made.', {
             autoClose: 2000,
-          }) // Using a toast for better UX
+          })
           return
         }
 
         try {
+          // console.log('Updating product with:', values)
+
           await updateProduct(product._id || product.id!.toString(), values)
           fetchProducts(0, limit, true) // Refresh the product list
 
@@ -95,6 +99,7 @@ const EditProductModal = ({
           onClose()
         } catch (error) {
           console.error('Error updating product:', error)
+
           // toast.error('Failed to update product. Please try again.', {
           //   autoClose: 2000,
           // })
@@ -121,6 +126,10 @@ const EditProductModal = ({
               className="w-full border rounded px-3 py-2 mb-3"
               value={formik.values.name}
               onChange={formik.handleChange}
+              // onChange={(e) => {
+              //   formik.handleChange(e)
+              //   console.log('Current Name Input:', e.target.value) // Debugging
+              // }}
               onBlur={formik.handleBlur}
               placeholder="Enter product name"
               autoComplete="on"
@@ -187,7 +196,7 @@ const EditProductModal = ({
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-              disabled={formik.isSubmitting} // Disable button while form is submitting
+              disabled={formik.isSubmitting}
               aria-label="Save changes"
             >
               {formik.isSubmitting ? <Spinner /> : 'Save'}
@@ -211,8 +220,10 @@ export default EditProductModal
 
 // Added <{ name: string; description: string; price: number; image: string }> to useFormik to explicitly define the shape of the values object.
 
-// Optional
-/* .matches(
-        /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)$/,
-        'Image URL must be a valid link to an image (e.g., .jpg, .png)',
-      ),*/
+// * Add the following onChange handler for debugging the name field
+// onChange={(e) => {
+//   formik.handleChange(e);
+//   console.log('Current Name Input:', e.target.value); // Log the current input
+// }}
+
+// NB. When enableReinitialize is set to true, Formik will reinitialize the form values whenever the initialValues prop changes (e.g., when the product prop is updated).

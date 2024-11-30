@@ -9,6 +9,10 @@ export const useUpdateProduct = () => {
   ): Promise<IProduct> => {
     try {
       const response = await updateProduct(id, data)
+
+      // Log the response to verify the updated product details.
+      // console.log('API Response:', response.data)
+
       toast.success('Product updated successfully!', { autoClose: 1000 })
       return response.data // Return updated product data
     } catch (error: unknown) {
