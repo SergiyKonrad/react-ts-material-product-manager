@@ -5,7 +5,6 @@ import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
 import ModalDelete from '../components/ModalDelete'
 import { CardContent, Typography } from '@mui/material'
-
 import {
   Container,
   StyledCard,
@@ -15,42 +14,37 @@ import {
 } from '../components/StyledComponents'
 
 const ProductPageMaterialUI = () => {
-  const [offset, setOffset] = useState(0)
-  const [isDeleting, setIsDeleting] = useState<string | null>(null)
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false) // Track if modal is open
-  const [productToDelete, setProductToDelete] = useState<string | null>(null) // Track the product ID
-  const [productNameToDelete, setProductNameToDelete] = useState<string | null>(
-    null,
-  ) // Track the product name
   const { products, loading, error, fetchProducts } = useProducts()
   const deleteProduct = useDeleteProduct()
-  const limit = 1
+  const [offset, setOffset] = useState(0)
+  const [isDeleting, setIsDeleting] = useState<string | null>(null)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [productToDelete, setProductToDelete] = useState<string | null>(null)
+  const [productNameToDelete, setProductNameToDelete] = useState<string | null>(
+    null,
+  )
+  const limit = 1 // Number of products per batch
 
+  // Fetch products with debounce to avoid redundant requests
   useEffect(() => {
-    let isMounted = true // Prevent state updates on unmounted components
-
-    const fetchInitialProducts = async () => {
-      try {
-        await fetchProducts(0, limit)
-        if (isMounted) {
-          setOffset(0)
+    const timeoutId = setTimeout(() => {
+      const fetchDebouncedProducts = async () => {
+        try {
+          await fetchProducts(offset, limit)
+        } catch (error) {
+          console.error('Error fetching products:', error)
         }
-      } catch (error) {
-        console.error('Error fetching initial products:', error)
       }
-    }
+      fetchDebouncedProducts()
+    }, 300) // Debounce by 300ms
 
-    fetchInitialProducts()
+    return () => clearTimeout(timeoutId) // Clean up the timeout on re-renders or unmount
+  }, [fetchProducts, offset, limit])
 
-    return () => {
-      isMounted = false // Clean up
-    }
-  }, [fetchProducts, limit])
-
+  // Handle delete operation
   const handleDelete = useCallback(
     async (id: string) => {
       setIsDeleting(id)
-
       try {
         await deleteProduct(id)
         const updatedOffset = Math.max(offset - limit, 0)
@@ -65,33 +59,29 @@ const ProductPageMaterialUI = () => {
     [deleteProduct, fetchProducts, limit, offset],
   )
 
-  const confirmDelete = (id: string, productName?: string) => {
+  // Confirm delete by opening the modal
+  const confirmDelete = useCallback((id: string, productName?: string) => {
     setProductToDelete(id)
     setProductNameToDelete(productName || null)
-    setDeleteModalOpen(true) // Open the modal
-  }
+    setDeleteModalOpen(true)
+  }, [])
 
-  // const handleConfirmDelete = async () => {
-  //   if (productToDelete) {
-  //     await handleDelete(productToDelete)
-  //   }
-  //   setDeleteModalOpen(false)
-  // }
-
-  const handleConfirmDelete = async () => {
+  // Handle modal confirmation for delete
+  const handleConfirmDelete = useCallback(async () => {
     if (productToDelete) {
       setDeleteModalOpen(false) // Close the modal immediately
       try {
-        await handleDelete(productToDelete) // Calls the hook, which handles deletion and toast feedback
+        await handleDelete(productToDelete)
       } catch (error) {
         console.error('Deletion failed:', error)
       }
     }
-  }
+  }, [handleDelete, productToDelete])
 
-  const handleCancelDelete = () => {
-    setDeleteModalOpen(false) // Close the modal without deleting
-  }
+  // Cancel delete operation and close the modal
+  const handleCancelDelete = useCallback(() => {
+    setDeleteModalOpen(false)
+  }, [])
 
   return (
     <Container>
@@ -117,7 +107,6 @@ const ProductPageMaterialUI = () => {
               <>&times;</>
             )}
           </DeleteCross>
-
           <StyledImage
             src={product.image}
             alt={product.name || product.title}
@@ -140,7 +129,6 @@ const ProductPageMaterialUI = () => {
         </StyledCard>
       ))}
 
-      {/* Modal for delete confirmation */}
       <ModalDelete
         open={deleteModalOpen}
         onConfirm={handleConfirmDelete}
@@ -152,3 +140,15 @@ const ProductPageMaterialUI = () => {
 }
 
 export default ProductPageMaterialUI
+
+// // Fetch products when the component mounts and when offset changes
+// useEffect(() => {
+//   const fetchInitialProducts = async () => {
+//     try {
+//       await fetchProducts(offset, limit)
+//     } catch (error) {
+//       console.error('Error fetching products:', error)
+//     }
+//   }
+//   fetchInitialProducts()
+// }, [fetchProducts, offset, limit])

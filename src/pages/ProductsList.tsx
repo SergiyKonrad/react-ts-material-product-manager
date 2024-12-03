@@ -16,7 +16,7 @@ import {
   Spinner,
 } from '../components/StyledComponents'
 
-const ProductPage = () => {
+const ProductsList = () => {
   const { products, loading, error, fetchProducts } = useProducts()
   const deleteProduct = useDeleteProduct()
   const [isEditModalOpen, setEditModalOpen] = useState(false)
@@ -35,11 +35,6 @@ const ProductPage = () => {
 
     return () => clearTimeout(timeoutId)
   }, [offset, fetchProducts, limit])
-
-  // Or fetch products whenever the offset changes.
-  // useEffect(() => {
-  //   fetchProducts(offset, limit)
-  // }, [offset, fetchProducts, limit])
 
   const openEditModal = useCallback((product: IProduct) => {
     setSelectedProduct(product)
@@ -142,7 +137,12 @@ const ProductPage = () => {
   )
 }
 
-export default ProductPage
+export default ProductsList
+
+// Or fetch products whenever the offset changes.
+// useEffect(() => {
+//   fetchProducts(offset, limit)
+// }, [offset, fetchProducts, limit])
 
 // useEffect(() => {
 //   fetchProducts(0, limit) // in order to always fetch the first batch of products
