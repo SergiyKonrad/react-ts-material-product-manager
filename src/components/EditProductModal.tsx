@@ -99,10 +99,6 @@ const EditProductModal = ({
           onClose()
         } catch (error) {
           console.error('Error updating product:', error)
-
-          // toast.error('Failed to update product. Please try again.', {
-          //   autoClose: 2000,
-          // })
         }
       },
       [fetchProducts, limit, onClose, product, updateProduct],

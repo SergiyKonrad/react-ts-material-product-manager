@@ -1,6 +1,6 @@
-//  former Product Page
+//  former Product Page...
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { IProduct } from '../models'
 import { Product } from '../components/Products'
 import { useProducts } from '../hooks/useProducts'
@@ -24,41 +24,53 @@ const ProductPage = () => {
   const [offset, setOffset] = useState(0)
   const limit = 5 // Number of products per batch
 
-  // Fetch products whenever the offset changes.
+  const emptyLabel = 'Back to First Product'
+  const nonEmptyLabel = 'Get Another Products'
+  const isEmpty = products.length === 0
+
   useEffect(() => {
-    fetchProducts(offset, limit)
+    const timeoutId = setTimeout(() => {
+      fetchProducts(offset, limit)
+    }, 300) // Debounce by 300ms
+
+    return () => clearTimeout(timeoutId)
   }, [offset, fetchProducts, limit])
 
-  const openEditModal = (product: IProduct) => {
+  // Or fetch products whenever the offset changes.
+  // useEffect(() => {
+  //   fetchProducts(offset, limit)
+  // }, [offset, fetchProducts, limit])
+
+  const openEditModal = useCallback((product: IProduct) => {
     setSelectedProduct(product)
     setEditModalOpen(true)
-  }
+  }, [])
 
-  const closeEditModal = () => {
+  const closeEditModal = useCallback(() => {
     setSelectedProduct(null)
     setEditModalOpen(false)
-    fetchProducts(offset, limit) // Refresh products after editing.
-  }
+    fetchProducts(offset, limit)
+  }, [fetchProducts, limit, offset])
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteProduct(id) // API call to delete the product
-      const updatedOffset = Math.max(offset - limit, 0)
-      await fetchProducts(updatedOffset, limit, true)
-      setOffset(updatedOffset)
-    } catch (error) {
-      console.error('Failed to delete product:', error)
-    }
-  }
+  const handleDelete = useCallback(
+    async (id: string) => {
+      try {
+        await deleteProduct(id)
+        const updatedOffset = Math.max(offset - limit, 0)
+        await fetchProducts(updatedOffset, limit, true)
+        setOffset(updatedOffset)
+      } catch (error) {
+        console.error('Failed to delete product:', error)
+      }
+    },
+    [deleteProduct, fetchProducts, limit, offset],
+  )
 
-  const handleLoadNext = () => {
+  const handleLoadNext = useCallback(() => {
     if (products.length < limit) {
       toast.info(
         <p>
-          <strong>
-            {' '}
-            If no products are available, add one to get started!
-          </strong>
+          <strong>If no products are available, add one to get started!</strong>
         </p>,
         { autoClose: 4000 },
       )
@@ -66,18 +78,14 @@ const ProductPage = () => {
     } else {
       setOffset((prevOffset) => prevOffset + limit)
     }
-  }
-
-  const emptyLabel = 'Back to First Product'
-  const nonEmptyLabel = 'Get Another Products'
-
-  const isEmpty = products.length === 0
+  }, [products.length, limit])
 
   return (
     <div>
       <h1 className="text-center text-4xl mb-4 mt-0">Products</h1>
       {loading && <Loader />}
       {error && <ErrorMessage error={error} />}
+
       {products.map((product) => (
         <div key={product._id || product.id} className="mb-4">
           <Product product={product} onDelete={handleDelete} />
@@ -103,34 +111,33 @@ const ProductPage = () => {
       )}
 
       {/* Get Another Product Button */}
+      {/* Pagination Button */}
 
-      <div>
-        <ButtonWrapper style={buttonStyles}>
-          <DynamicButton
-            isEmpty={isEmpty}
-            variant="contained"
-            onClick={() => {
-              requestAnimationFrame(() => {
-                handleLoadNext()
+      <ButtonWrapper style={buttonStyles}>
+        <DynamicButton
+          isEmpty={isEmpty}
+          variant="contained"
+          onClick={() => {
+            requestAnimationFrame(() => {
+              handleLoadNext()
 
-                // Scroll to the top of the screen
-                window.scrollTo({
-                  top: 0,
-                  behavior: 'smooth',
-                })
+              // Scroll to the top of the screen
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
               })
-            }}
-            disabled={loading}
-            aria-label={isEmpty ? emptyLabel : nonEmptyLabel} // Dynamic aria-label
-          >
-            {loading ? (
-              <Spinner /> // Keeps the spinner for the loading state
-            ) : (
-              <>{isEmpty ? emptyLabel : nonEmptyLabel}</>
-            )}
-          </DynamicButton>
-        </ButtonWrapper>
-      </div>
+            })
+          }}
+          disabled={loading}
+          aria-label={isEmpty ? emptyLabel : nonEmptyLabel} // Dynamic aria-label
+        >
+          {loading ? (
+            <Spinner /> // Keeps the spinner for the loading state
+          ) : (
+            <>{isEmpty ? emptyLabel : nonEmptyLabel}</>
+          )}
+        </DynamicButton>
+      </ButtonWrapper>
     </div>
   )
 }

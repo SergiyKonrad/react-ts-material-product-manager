@@ -2,7 +2,7 @@ import styled from '@mui/material/styles/styled'
 import Button, { ButtonProps } from '@mui/material/Button'
 
 interface DynamicButtonProps extends ButtonProps {
-  isEmpty: boolean
+  isEmpty?: boolean
 }
 
 const DynamicButton = styled(Button, {

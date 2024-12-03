@@ -23,7 +23,7 @@ export const useUpdateProduct = () => {
         if ('response' in error && (error as any).response?.data?.message) {
           toast.error((error as any).response.data.message)
         } else {
-          toast.error('Failed to update product.Please try again.', {
+          toast.error('Failed to update product ... Please try again later.', {
             autoClose: 2000,
           })
         }
