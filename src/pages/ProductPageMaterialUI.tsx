@@ -23,7 +23,7 @@ const ProductPageMaterialUI = () => {
   const [productNameToDelete, setProductNameToDelete] = useState<string | null>(
     null,
   )
-  const limit = 1 // Number of products per batch
+  const limit = 1
 
   // Fetch products with debounce to avoid redundant requests
   useEffect(() => {
@@ -36,7 +36,7 @@ const ProductPageMaterialUI = () => {
         }
       }
       fetchDebouncedProducts()
-    }, 300) // Debounce by 300ms
+    }, 300)
 
     return () => clearTimeout(timeoutId) // Clean up the timeout on re-renders or unmount
   }, [fetchProducts, offset, limit])

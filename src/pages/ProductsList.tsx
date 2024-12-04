@@ -62,17 +62,21 @@ const ProductsList = () => {
   )
 
   const handleLoadNext = useCallback(() => {
-    if (products.length < limit) {
-      toast.info(
-        <p>
-          <strong>If no products are available, add one to get started!</strong>
-        </p>,
-        { autoClose: 4000 },
-      )
-      setOffset(0)
-    } else {
-      setOffset((prevOffset) => prevOffset + limit)
-    }
+    setTimeout(() => {
+      if (products.length < limit) {
+        toast.info(
+          <p>
+            <strong>
+              If no products are available, add one to get started!
+            </strong>
+          </p>,
+          { autoClose: 4000 },
+        )
+        setOffset(0)
+      } else {
+        setOffset((prevOffset) => prevOffset + limit)
+      }
+    }, 300)
   }, [products.length, limit])
 
   return (
@@ -121,6 +125,8 @@ const ProductsList = () => {
                 top: 0,
                 behavior: 'smooth',
               })
+
+              // * Retry scrolling code (provided below) if interrupted
             })
           }}
           disabled={loading}
@@ -139,17 +145,24 @@ const ProductsList = () => {
 
 export default ProductsList
 
-// Or fetch products whenever the offset changes.
+// * Retry scrolling code if interrupted
+// setTimeout(() => {
+//   if (window.scrollY !== 0) {
+//     window.scrollTo({
+//       top: 0,
+//       behavior: 'smooth',
+//     });
+//   }
+// }, 500);
+
+// -------
+
+//   fetch products whenever the offset changes.
 // useEffect(() => {
 //   fetchProducts(offset, limit)
 // }, [offset, fetchProducts, limit])
 
-// useEffect(() => {
-//   fetchProducts(0, limit) // in order to always fetch the first batch of products
-//   setOffset(0)
-// }, [fetchProducts, limit])
-
-//  Optional approach to apply the DynamicButton
+//   optional approach to apply the DynamicButton
 // const handleLoadNext = () => {
 //   setOffset((prevOffset) => prevOffset + limit)
 // }
