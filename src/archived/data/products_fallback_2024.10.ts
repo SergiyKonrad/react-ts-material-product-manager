@@ -1,6 +1,6 @@
 /**
- * products_fallback_2024.10.ts
- * NOTE: Archived fallback data for products.
+ * @file products_fallback_2024.10.ts
+ * @description Archived fallback data for products.
  * Retained for potential future use in offline testing or development.
  * This file is not included in the current project build.
  */
@@ -9,13 +9,11 @@
 export {}
 
 /* Fallback data for products
-
  This file contains a static array of products that can be used when 
  the API is unavailable, or when you need offline testing or development.
 */
 
 /*
-
 import { IProduct } from '../models'
 
 export const products: IProduct[] = [
@@ -45,5 +43,4 @@ export const products: IProduct[] = [
     rating: { rate: 4.1, count: 259 },
   },
 ]
-
 */

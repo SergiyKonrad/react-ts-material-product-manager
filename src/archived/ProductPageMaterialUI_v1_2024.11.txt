@@ -187,4 +187,5 @@ export default ProductPageMaterialUI
  * 4. Includes logic for updating the `offset` after a delete operation.
 
   * NOTE: Rename this file to ProductPageMaterialUI_v1_2024.11.tsx to use it in the project.
+  
  */
