@@ -1,3 +1,19 @@
+/**
+ * NOTE: This file is for archival purposes only.
+ * It should not be included in the active build or used in production!
+ */
+
+
+/**
+ * ProductPageMaterialUI_v1_2024.11.txt
+
+ * Archived version of the ProductPageMaterialUI.tsx page.
+ * This version uses debounce fetching logic and supports displaying multiple products.
+ * Retained for potential future use or reference.
+ */
+
+ 
+/*
 import React, { useState, useEffect, useCallback } from 'react'
 import { useProducts } from '../hooks/useProducts'
 import { useDeleteProduct } from '../hooks/useDeleteProduct'
@@ -16,26 +32,31 @@ import {
 const ProductPageMaterialUI = () => {
     const { products, loading, error, fetchProducts } = useProducts()
     const deleteProduct = useDeleteProduct()
+    const [offset, setOffset] = useState(0)
     const [isDeleting, setIsDeleting] = useState<string | null>(null)
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
     const [productToDelete, setProductToDelete] = useState<string | null>(null)
     const [productNameToDelete, setProductNameToDelete] = useState<
         string | null
     >(null)
+    const limit = 1
 
-    const limit = 1 // Always fetch one product at a time
-
-    // Fetch one product (the most recent or single)
+    // .
+    // Fetch products with debounce to avoid redundant requests
     useEffect(() => {
-        const fetchSingleProduct = async () => {
-            try {
-                await fetchProducts(0, limit) // Fetch only one product
-            } catch (error) {
-                console.error('Error fetching product:', error)
+        const timeoutId = setTimeout(() => {
+            const fetchDebouncedProducts = async () => {
+                try {
+                    await fetchProducts(offset, limit)
+                } catch (error) {
+                    console.error('Error fetching products:', error)
+                }
             }
-        }
-        fetchSingleProduct()
-    }, [fetchProducts, limit])
+            fetchDebouncedProducts()
+        }, 300)
+
+        return () => clearTimeout(timeoutId) // Clean up the timeout on re-renders or unmount
+    }, [fetchProducts, offset, limit])
 
     // Handle delete operation
     const handleDelete = useCallback(
@@ -43,17 +64,19 @@ const ProductPageMaterialUI = () => {
             setIsDeleting(id)
             try {
                 await deleteProduct(id)
-                await fetchProducts(0, limit, true) // Refresh the page to fetch the latest product
+                const updatedOffset = Math.max(offset - limit, 0)
+                await fetchProducts(updatedOffset, limit, true)
+                setOffset(updatedOffset)
             } catch (error) {
                 console.error('Failed to delete product:', error)
             } finally {
                 setIsDeleting(null)
             }
         },
-        [deleteProduct, fetchProducts, limit],
+        [deleteProduct, fetchProducts, limit, offset],
     )
 
-    // Confirm delete by opening the modal
+    // Confirm delete by opening the modal..
     const confirmDelete = useCallback((id: string, productName?: string) => {
         setProductToDelete(id)
         setProductNameToDelete(productName || null)
@@ -63,7 +86,7 @@ const ProductPageMaterialUI = () => {
     // Handle modal confirmation for delete
     const handleConfirmDelete = useCallback(async () => {
         if (productToDelete) {
-            setDeleteModalOpen(false)
+            setDeleteModalOpen(false) // Close the modal immediately
             try {
                 await handleDelete(productToDelete)
             } catch (error) {
@@ -86,33 +109,27 @@ const ProductPageMaterialUI = () => {
             {loading && <Loader />}
             {error && <ErrorMessage error={error} />}
 
-            {/* Render a single product if available */}
-            {products.length > 0 && (
-                <StyledCard
-                    key={products[0]._id || products[0].id}
-                    variant="outlined"
-                >
+            {products.map((product) => (
+                <StyledCard key={product._id || product.id} variant="outlined">
                     <DeleteCross
                         onClick={() =>
                             confirmDelete(
-                                products[0]._id || products[0].id!.toString(),
-                                products[0].name,
+                                product._id || product.id!.toString(),
+                                product.name,
                             )
                         }
                         aria-label="Delete product"
-                        disabled={
-                            isDeleting === (products[0]._id || products[0].id)
-                        }
+                        disabled={isDeleting === (product._id || product.id)}
                     >
-                        {isDeleting === (products[0]._id || products[0].id) ? (
+                        {isDeleting === (product._id || product.id) ? (
                             <Spinner />
                         ) : (
                             <>&times;</>
                         )}
                     </DeleteCross>
                     <StyledImage
-                        src={products[0].image}
-                        alt={products[0].name || products[0].title}
+                        src={product.image}
+                        alt={product.name || product.title}
                     />
                     <CardContent>
                         <Typography
@@ -120,32 +137,21 @@ const ProductPageMaterialUI = () => {
                             component="div"
                             sx={{ fontStyle: 'italic' }}
                         >
-                            {products[0].name || products[0].title}
+                            {product.name || product.title}
                         </Typography>
                         <Typography
                             variant="body2"
                             color="text.secondary"
                             gutterBottom
                         >
-                            {products[0].description}
+                            {product.description}
                         </Typography>
                         <Typography variant="h6" color="text.primary">
-                            ${products[0].price.toFixed(2)}
+                            ${product.price.toFixed(2)}
                         </Typography>
                     </CardContent>
                 </StyledCard>
-            )}
-
-            {/* Handle empty state */}
-            {products.length === 0 && !loading && !error && (
-                <Typography
-                    variant="body2"
-                    align="center"
-                    color="text.secondary"
-                >
-                    No product available. Please add a product.
-                </Typography>
-            )}
+            ))}
 
             <ModalDelete
                 open={deleteModalOpen}
@@ -158,3 +164,27 @@ const ProductPageMaterialUI = () => {
 }
 
 export default ProductPageMaterialUI
+
+// // Fetch products when the component mounts and when offset changes
+// useEffect(() => {
+//   const fetchInitialProducts = async () => {
+//     try {
+//       await fetchProducts(offset, limit)
+//     } catch (error) {
+//       console.error('Error fetching products:', error)
+//     }
+//   }
+//   fetchInitialProducts()
+// }, [fetchProducts, offset, limit])
+
+*/
+
+/**
+ * Key Differences:
+ * 1. Uses `offset` and `limit` for pagination.
+ * 2. Implements debounce logic for fetching products.
+ * 3. Supports displaying multiple products instead of a single product.
+ * 4. Includes logic for updating the `offset` after a delete operation.
+
+  * NOTE: Rename this file to ProductPageMaterialUI_v1_2024.11.tsx to use it in the project.
+ */

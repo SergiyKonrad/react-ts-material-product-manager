@@ -1,3 +1,11 @@
+/**
+ * products_fallback_2024.10.ts
+ * NOTE: Archived fallback data for products.
+ * Retained for potential future use in offline testing or development.
+ * This file is not included in the current project build.
+ */
+
+// This ensures the file is treated as a module under `--isolatedModules`.
 export {}
 
 /* Fallback data for products
